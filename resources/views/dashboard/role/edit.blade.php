@@ -1,0 +1,108 @@
+@extends('layout.main')
+
+@section('title', 'EDIT DATA PERAN USER')
+
+@section('container')
+    <main id="main" class="main">
+        <div class="pagetitle">
+            <h1>Edit Peran User</h1>
+            <nav>
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Dashboard</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.roles.index') }}">Peran User</a></li>
+                    <li class="breadcrumb-item active">Edit Peran User</li>
+                </ol>
+            </nav>
+        </div><!-- End Page Title -->
+        <section class="section">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card">
+                        <div class="card-body">
+                            <h5 class="card-title" style="text-align: center;">EDIT DATA PERAN USER</h5>
+
+                            <form class="row g-3" id="roleForm" action="{{ route('dashboard.roles.update', $role->id) }}"
+                                method="POST">
+                                @csrf
+                                @method('PUT')
+                                <div class="col-md-8">
+                                    <label for="validationDefault01" class="form-label">PERAN :</label>
+                                    <input type="text" name="name" class="form-control" id="validationDefault01"
+                                        value="{{ old('name', $role->name) }}" placeholder="Isi Nama Peran">
+                                </div>
+                                <div class="col-lg-8">
+                                    @if ($errors->has('name'))
+                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                            {{ $errors->first('name') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <div class="col-md-8">
+                                    <label for="inputState" class="form-label">HAK AKSES :</label>
+                                    <select name="permissions[]" id="multipleSelect" multiple
+                                        placeholder="Select Permissions" data-search="false"
+                                        data-silent-initial-value-set="true">
+                                        @foreach ($permissions as $permission)
+                                            <option value="{{ $permission->id }}"
+                                                {{ $role->permissions->pluck('id')->contains($permission->id) ? 'selected' : '' }}>
+                                                {{ $permission->title }}
+                                            </option>
+                                        @endforeach
+                                    </select>
+                                    @error('permissions')
+                                        <span class="text-danger">{{ $message }}</span>
+                                    @enderror
+                                </div>
+
+                                <div class="col-6" style="margin-left: 30%;">
+                                    <button class="btn btn-primary" type="submit">
+                                        <i class="bi bi-save"></i>
+                                        Update Data
+                                    </button>
+                                    <a class="btn btn-danger" href="{{ route('dashboard.roles.index') }}">
+                                        <i class="bi bi-x-lg"></i>
+                                        Kembali
+                                    </a>
+                                </div>
+                            </form>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main><!-- End #main -->
+@endsection
+
+@push('addon-script')
+    <!-- SCRIPT SELECT PICKER -->
+    <script src="{{ asset('assets/virtual-select-master/virtual-select.min.js') }}"></script>
+
+    <script>
+        VirtualSelect.init({
+            ele: '#multipleSelect'
+        });
+    </script>
+
+    <script>
+        document.getElementById('roleForm').addEventListener('submit', function(event) {
+            event.preventDefault(); // Mencegah form submit langsung
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                text: "Data akan diubah!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, ubah!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.submit(); // Melanjutkan submit form jika user mengonfirmasi
+                }
+            });
+        });
+    </script>
+@endpush
