@@ -19,14 +19,14 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title" style="text-align: center;">EDIT DATA KOMPLAIN</h5>
+                            <h5 class="card-title text-center">EDIT DATA KOMPLAIN</h5>
                             <!-- Multi Columns Form -->
                             <form id="formEditKomplain" class="row g-3" action="{{ route('dashboard.complaints.update', $complaint->id) }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 @method('PUT')
 
                                 {{-- user_id --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputUser" class="form-label">Nama User</label>
                                     <select class="form-select" id="inputUser" name="user_id" @if(auth()->user()->role_id != 1) disabled @endif>
                                         <option value="">Pilih User</option>
@@ -42,7 +42,7 @@
                                 </div>
 
                                 {{-- rent_id --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputRent" class="form-label">Nama Kontrakan</label>
                                     <select class="form-select" id="inputRent" name="rent_id">
                                         <option value="">Pilih Kontrakan</option>
@@ -58,36 +58,30 @@
                                 </div>
 
                                 {{-- keluhan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputComplaint" class="form-label">Keluhan</label>
-                                    <textarea class="form-control" id="inputComplaint" name="keluhan" rows="3" @if(auth()->user()->role_id != 1)  @endif>{{ $complaint->keluhan }}</textarea>
+                                    <textarea class="form-control" id="inputComplaint" name="keluhan" rows="3" @if(auth()->user()->role_id != 1) disabled @endif>{{ $complaint->keluhan }}</textarea>
                                     @error('keluhan')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
 
-                                {{-- gambar_keluhan --}} 
-                                <div class="col-md-8">
+                                {{-- gambar_keluhan --}}
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto Keluhan</label>
-                                    <div class="col-sm-10" style="max-width: 300px; max-height: 300px;">
-                                        <img src="{{ asset('assets/upload/gambar_keluhan/' . $complaint->gambar_keluhan) }}"
-                                            class="img-thumbnail" id="previewKELUHANimg">
+                                    <div class="mb-3">
+                                        <img src="{{ asset('assets/upload/gambar_keluhan/' . $complaint->gambar_keluhan) }}" class="img-thumbnail" id="previewKELUHANimg" style="max-width: 100%; height: auto;">
                                     </div>
-
-                                    <div class="col-sm-12">
-                                        <div class="custom-file">
-                                            <input type="file" name="gambar_keluhan"
-                                                class="custom-file-input @error('gambar_keluhan') is-invalid @enderror"
-                                                id="gambarKELUHAN" @if(auth()->user()->role_id != 1) disabled @endif>
-                                            @error('gambar_keluhan')
-                                                <div class="invalid-feedback">{{ $message }}</div>
-                                            @enderror
-                                        </div>
+                                    <div class="mb-3">
+                                        <input type="file" name="gambar_keluhan" class="form-control @error('gambar_keluhan') is-invalid @enderror" id="gambarKELUHAN" @if(auth()->user()->role_id != 1) disabled @endif>
+                                        @error('gambar_keluhan')
+                                            <div class="invalid-feedback">{{ $message }}</div>
+                                        @enderror
                                     </div>
                                 </div>
 
                                 {{-- Status Keluhan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label class="form-label">Status Keluhan</label>
                                     @if(auth()->user()->role_id == 1)
                                         <div class="form-check">
@@ -116,7 +110,7 @@
                                 </div>
 
                                 {{-- Submit button --}}
-                                <div class="text-center">
+                                <div class="col-md-8 offset-md-2 text-center">
                                     <button type="submit" class="btn btn-success" id="submitButton">
                                         <i class="bi bi-person-plus"></i> Update Data
                                     </button>
@@ -131,7 +125,6 @@
             </div>
         </section>
 
-        
         {{-- kode alert keluhan --}}
         @include('includes.scriptsComplaint')
     </main><!-- End #main -->

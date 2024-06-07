@@ -76,7 +76,7 @@
                                                                     class="btn btn-danger">{{ $transaksi->status_transaksi }}</button>
                                                             @endif
                                                         </td>
-                                                        <td>{{ $transaksi->total_harga }}</td>
+                                                        <td>Rp {{ number_format($transaksi->total_bayar, 2, ',', '.') }}</td>
                                                         <td>
                                                             <div class="button-container">
                                                                 {{-- Tombol Edit --}}

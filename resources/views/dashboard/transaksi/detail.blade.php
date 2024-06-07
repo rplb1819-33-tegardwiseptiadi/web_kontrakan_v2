@@ -45,7 +45,7 @@
                                     <div class="col-md-5">
                                         <label for="inputEmail5" class="form-label">Nama Kontrakan</label>
                                         <input type="text" name="umur_penghuni" class="form-control" id="inputEmail5"
-                                            value="{{ $transaction->rent->nama_kontrakan }} Tahun" readonly>
+                                            value="{{ $transaction->rent->nama_kontrakan }}" readonly>
                                     </div>
 
                                     <div class="col-md-5">

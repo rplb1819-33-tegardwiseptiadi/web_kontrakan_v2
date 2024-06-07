@@ -27,38 +27,38 @@
 
                             <!-- Edit Form -->
                             <form class="row g-3">
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputName5" class="form-label">Nama User</label>
                                     <input type="text" name="nama_penghuni" class="form-control" id="inputName5"
                                         value="{{ $user->name }}" readonly>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Role User</label>
                                     <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->role->name }}" readonly>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Email User</label>
                                     <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->email }}" readonly>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Umur</label>
                                     <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->umur }} Tahun" readonly>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Jenis Kelamin</label>
                                     <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->jenis_kelamin }}" readonly>
                                 </div>
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Status</label>
                                     <input type="text" name="umur_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->status_penghuni }}" readonly>
                                 </div>
 
-                                <div class="col-md-5">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto User</label>
                                     <div class="col-sm-10"
                                         style="max-width: 400px; max-height: 600px; width: auto; height: auto;">

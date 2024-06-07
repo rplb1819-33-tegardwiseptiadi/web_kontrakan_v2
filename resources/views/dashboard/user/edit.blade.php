@@ -29,7 +29,7 @@
                                 @method('PUT')
 
                                 <!-- Name -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputName" class="form-label">Nama</label>
                                     <input type="text" name="name" class="form-control" id="inputName"
                                         value="{{ old('name', $user->name) }}">
@@ -43,7 +43,7 @@
                                 </div>
 
                                 <!-- Email -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail" class="form-label">Email</label>
                                     <input type="email" name="email" class="form-control" id="inputEmail"
                                         value="{{ old('email', $user->email) }}">
@@ -57,7 +57,7 @@
                                 </div>
 
                                 <!-- Password -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputPassword" class="form-label">Password</label>
                                     <input type="password" name="password" class="form-control" id="inputPassword"
                                         placeholder="Leave blank to keep current password">
@@ -71,7 +71,7 @@
                                 </div>
 
                                 <!-- Umur -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputUmur" class="form-label">Umur</label>
                                     <input type="number" name="umur" class="form-control" id="inputUmur"
                                         value="{{ old('umur', $user->umur) }}">
@@ -85,7 +85,7 @@
                                 </div>
 
                                 <!-- Jenis Kelamin -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputGender" class="form-label">Jenis Kelamin</label>
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="jenis_kelamin" value="Pria"
@@ -109,7 +109,7 @@
                                 </div>
 
                                 <!-- Status Penghuni -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputStatusPenghuni" class="form-label">Status Penghuni</label>
                                     <select name="status_penghuni" id="inputStatusPenghuni" class="form-select">
                                         <option value="Sudah Menikah"
@@ -128,7 +128,7 @@
                                     @endif
                                 </div>
                                 {{-- gambar ktp --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto KTP</label>
                                     <div class="col-sm-10"
                                         style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
@@ -149,7 +149,7 @@
 
 
                                 <!-- Role -->
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputRole" class="form-label">Role</label>
                                     <select name="role_id" id="inputRole" class="form-select">
                                         @foreach ($roles as $role)

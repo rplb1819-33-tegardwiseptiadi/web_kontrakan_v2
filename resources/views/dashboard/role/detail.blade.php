@@ -25,14 +25,14 @@
                         <div class="card-body">
                             <h5 class="card-title" style="text-align: center;">DETAIL DATA PERAN USER</h5>
 
-                            <div class="col-md-8 mt-2">
+                            <div class="col-md-8 mt-2 offset-md-2">
                                 <div class="col-md-10">
                                     <label for="inputEmail5" class="form-label">Nama Akses</label>
                                     <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $role->name }}" readonly>
                                 </div>
                                 <div class="row">
-                                    <div class="col-lg-12">
+                                    <div class="col-lg-8 offset-md-1">
                                         <table class="table">
                                             <thead class="thead-dark">
                                                 <tr>

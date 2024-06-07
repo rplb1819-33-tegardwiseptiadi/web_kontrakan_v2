@@ -48,7 +48,7 @@
                                 </div>
                             </div>
                             <div class="text-center mt-3">
-                                <a href="{{ route('dashboard.complaints.index') }}" class="btn btn-danger">
+                                <a href="{{ route('homepage') }}" class="btn btn-danger">
                                     <i class="bi bi-x-lg"></i>
                                     Kembali
                                 </a>

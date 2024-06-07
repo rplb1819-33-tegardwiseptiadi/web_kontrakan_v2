@@ -27,43 +27,43 @@
 
                             <!-- Edit Form -->
                             <form class="row g-3">
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputName5" class="form-label">Nama kontrakan</label>
                                     <input type="text" name="nama_kontrakan" class="form-control" id="inputName5"
                                         value="{{ $rent->nama_kontrakan }}" readonly>
                                 </div>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Tipe Kontrakan</label>
                                     <input type="text" name="tipe_kontrakan" class="form-control" id="inputEmail5"
                                         value="{{ $rent->tipe_kontrakan }}" readonly>
                                 </div>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Kapasitas Kontrakan</label>
                                     <input type="text" name="kapasitas_kontrakan" class="form-control" id="inputEmail5"
                                         value="{{ $rent->kapasitas_kontrakan }} orang" readonly>
                                 </div>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Harga Kontrakan</label>
                                     <input type="text" name="harga_kontrakan" class="form-control" id="inputEmail5"
                                         value="Rp {{ number_format($rent->harga_kontrakan, 2, ',', '.') }}" readonly>
                                 </div>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Status Kontrakan</label>
                                     <input type="text" name="status_kontrakan" class="form-control" id="inputEmail5"
                                         value="{{ $rent->status_kontrakan }}" readonly>
                                 </div>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Alamat Kontrakan</label>
                                     <input type="text" name="alamat_kontrakan" class="form-control" id="inputEmail5"
                                         value="{{ $rent->alamat_kontrakan }}" readonly>
                                 </div>
  
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto Kontrakan</label>
                                     <div class="col-sm-10"
                                         style="max-width: 400px; max-height: 600px; width: auto; height: auto;">

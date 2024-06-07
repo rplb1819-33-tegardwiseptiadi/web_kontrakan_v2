@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-    <title>KONSU APP | MAIN HOME</title>
+    <title>KONSU| LANDING PAGE</title>
     <meta content="" name="description">
     <meta content="" name="keywords">
 
@@ -46,7 +46,7 @@
         <div class="container d-flex align-items-center">
             <a href="#home" class="logo me-auto" style="display: flex; align-items: center;">
                 <img src="{{ asset('assets_landingpage/img/logo/Logo.png') }}" alt="" class="img-fluid">
-                <h1 class="logo-text" style="color:white; margin:10px">KONSU APP</h1>
+                <h1 class="logo-text" style="color:white; margin:10px">KONSU</h1>
             </a>
 
 
@@ -57,7 +57,7 @@
                     <li><a class="nav-link scrollto" href="#properties">Properties</a></li>
                     <li><a class="nav-link scrollto" href="#staff">Staff</a></li>
                     <li><a class="nav-link scrollto" href="#about">About</a></li>
-                    <li><a class="nav-link scrollto" href="#why">Why KONSU APP</a></li>
+                    <li><a class="nav-link scrollto" href="#why">Why KONSU ?</a></li>
                     <li><a class="nav-link scrollto" href="#contact">Contact</a></li>
                     <li><a class="getstarted scrollto" href="{{ route('login') }}">Have An Account ?</a></li>
                 </ul>
@@ -75,7 +75,7 @@
                 <div class="col-lg-6 d-flex flex-column justify-content-center pt-4 pt-lg-0 order-2 order-lg-1"
                     data-aos="fade-up" data-aos-delay="200">
                     <h1>Selamat Datang di Kontrakan Supadi</h1>
-                    <h2> 
+                    <h2>
                         Temukan kenyamanan dan keamanan di kontrakan kami. Nikmati pengalaman tinggal yang tak
                         terlupakan dengan layanan terbaik dari kami.
                     </h2>
@@ -84,7 +84,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6 order-1 order-lg-2 hero-img" data-aos="zoom-in" data-aos-delay="200">
-                    <img src="{{ asset('assets_landingpage/img/hero-img.png')}}" class="img-fluid animated"
+                    <img src="{{ asset('assets_landingpage/img/hero-img.png') }}" class="img-fluid animated"
                         alt="">
                 </div>
             </div>
@@ -117,29 +117,33 @@
                     </p>
                 </div>
 
-              <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
-    <li data-filter="*" class="filter-active">Semua</li>
-    <li data-filter=".filter-tahunan">Tahunan</li>
-    <li data-filter=".filter-bulanan">Bulanan</li>
-</ul>
+                <ul id="portfolio-flters" class="d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+                    <li data-filter="*" class="filter-active">Semua</li>
+                    <li data-filter=".filter-tahunan">Tahunan</li>
+                    <li data-filter=".filter-bulanan">Bulanan</li>
+                </ul>
 
-<div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
-    @foreach ($rents as $rent)
-        <div class="col-lg-4 col-md-6 portfolio-item filter-{{ strtolower($rent->tipe_kontrakan) }}">
-            <div class="portfolio-img">
-                <img src="{{ asset('assets/upload/gambar_kontrakan/' . $rent->gambar_kontrakan) }}" class="img-fluid" alt="">
-            </div>
-            <div class="portfolio-info">
-                <h4>{{ $rent->nama_kontrakan }}</h4>
-                <p>{{ $rent->tipe_kontrakan }}</p>
-                <p>Rp {{ $rent->harga_kontrakan }}</p>
-                <a href="{{ route('login') }}" class="details-link" title="More Details" style="font-size:15px; margin-top:18px">
-                    <i class="bi bi-eye"></i> View More
-                </a>
-            </div>
-        </div>
-    @endforeach
-</div>
+                <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+                    @foreach ($rents as $rent)
+                        <div class="col-lg-4 col-md-6 portfolio-item filter-{{ strtolower($rent->tipe_kontrakan) }}">
+                            <div class="portfolio-img">
+                                <img src="{{ asset('assets/upload/gambar_kontrakan/' . $rent->gambar_kontrakan) }}"
+                                    class="img-fluid" alt=""
+                                    style="width: 100%; height: 250px; object-fit: cover;">
+                            </div>
+                            <div class="portfolio-info">
+                                <h4>{{ $rent->nama_kontrakan }}</h4>
+                                <p>{{ $rent->tipe_kontrakan }}</p>
+                                <p>Rp {{ number_format($rent->harga_kontrakan, 2, ',', '.') }}</p>
+                                <a href="{{ route('login') }}" class="details-link" title="More Details"
+                                    style="font-size:15px; margin-top:18px">
+                                    <i class="bi bi-eye"></i> View More
+                                </a>
+                            </div>
+                        </div>
+                    @endforeach
+                </div>
+
 
 
             </div>
@@ -154,21 +158,21 @@
                 <div class="section-title">
                     <h2>Staff KONSU APP</h2>
                     <p>
-                        Anda akan dilayani oleh staff terbaik di KONSU APP! Kami bangga memiliki tim yang berkomitmen
-                        untuk menyediakan pelayanan pelanggan yang luar biasa. Dengan pengetahuan yang mendalam dan
-                        keahlian di bidangnya, staff kami akan memberikan bantuan yang Anda butuhkan untuk memilih
-                        produk dengan tepat, memberikan saran teknis, dan menjamin kepuasan Anda. Percayakan kebutuhan
-                        komputasi Anda kepada staff berkualitas terbaik di KONSU APP dan nikmati pengalaman belanja yang
-                        menyenangkan!
+                        Selamat datang di KONSU APP! Kami bangga menyajikan layanan praktis yang memudahkan Anda dalam
+                        mencari dan memilih produk. Dengan antarmuka yang ramah pengguna dan informasi yang lengkap,
+                        website kami dirancang untuk memberikan pengalaman terbaik bagi Anda. Nikmati kemudahan
+                        berbelanja dan mendapatkan informasi teknis yang Anda butuhkan dengan KONSU APP. Percayakan
+                        kebutuhan komputasi Anda kepada kami dan rasakan kenyamanan berbelanja secara online!
 
                     </p>
                 </div>
 
+                {{-- Start team --}}
                 <div class="row">
 
                     <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
                         <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="{{ asset('assets_landingpage/img/staff/ceo.jpg') }}"
+                            <div class="pic"><img src="{{ asset('assets/img/staff/owner.jpg') }}"
                                     class="img-fluid" alt=""></div>
                             <div class="member-info">
                                 <h4>Supadi</h4>
@@ -187,7 +191,7 @@
 
                     <div class="col-lg-6" data-aos="zoom-in" data-aos-delay="100">
                         <div class="member d-flex align-items-start">
-                            <div class="pic"><img src="{{ asset('assets_landingpage/img/staff/ceo.jpg') }}"
+                            <div class="pic"><img src="{{ asset('assets/img/staff/developer.jpeg') }}"
                                     class="img-fluid" alt=""></div>
                             <div class="member-info">
                                 <h4>Tegar Dwi Septiadi</h4>
@@ -417,7 +421,7 @@
 
         <div class="container footer-bottom clearfix">
             <div class="copyright">
-                &copy;2024 Copyright <strong><span>KONSU APP Web Application</span></strong>. All Rights Reserved
+                &copy;2024 Copyright <strong><span>KONSU Web Application</span></strong>. All Rights Reserved
             </div>
         </div>
     </footer><!-- End Footer -->

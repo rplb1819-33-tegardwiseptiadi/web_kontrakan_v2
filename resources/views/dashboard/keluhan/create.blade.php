@@ -27,7 +27,7 @@
                                  @csrf
                                  {{-- user_id --}}
                                  @if (auth()->user()->role_id == 1)
-                                     <div class="col-md-8">
+                                     <div class="col-md-8 offset-md-2 offset-md-2">
                                          <label for="inputUser" class="form-label">Pengguna</label>
                                          <select class="form-select" id="inputUser" name="user_id">
                                              <option value="">Pilih Pengguna</option>
@@ -44,15 +44,16 @@
                                      </div>
                                  @else
                                      <input type="hidden" name="user_id" value="{{ Auth::id() }}">
-                                     <div class="col-md-8">
+                                     <div class="col-md-8 offset-md-2">
                                          <label for="inputUser" class="form-label">Pengguna</label>
                                          <input type="text" class="form-control" id="inputUser"
                                              value="{{ auth()->user()->name }}" disabled>
                                      </div>
                                  @endif
 
+
                                  {{-- rent_id --}}
-                                 <div class="col-md-8">
+                                 <div class="col-md-8 offset-md-2">
                                      <label for="inputRent" class="form-label">ID Kontrakan</label>
                                      <select class="form-select" id="inputRent" name="rent_id">
                                          <option value="">Pilih Kontrakan</option>
@@ -69,7 +70,7 @@
                                  </div>
 
                                  {{-- keluhan --}}
-                                 <div class="col-md-8">
+                                 <div class="col-md-8 offset-md-2">
                                      <label for="inputComplaint" class="form-label">Keluhan</label>
                                      <textarea class="form-control" id="inputComplaint" name="keluhan" rows="3">{{ old('keluhan') }}</textarea>
                                      @error('keluhan')
@@ -78,7 +79,7 @@
                                  </div>
 
                                  {{-- gambar_keluhan --}}
-                                 <div class="col-md-8">
+                                 <div class="col-md-8 offset-md-2">
                                      <label for="inputImage" class="form-label">Foto Keluhan</label>
                                      <div class="col-sm-10"
                                          style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
@@ -97,7 +98,7 @@
                                  </div>
 
                                  {{-- Status Keluhan --}}
-                                 <div class="col-md-8">
+                                 <div class="col-md-8 offset-md-2">
                                      <label class="form-label">Status Keluhan</label>
                                      @if (auth()->user()->role_id == 1)
                                          <div class="form-check">

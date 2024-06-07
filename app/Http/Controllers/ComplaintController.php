@@ -44,7 +44,7 @@ class ComplaintController extends Controller
     {
         // Validasi data
         $request->validate([
-            'user_id' => 'required|exists:rents,id',
+            'user_id' => 'required|exists:users,id',
             'rent_id' => 'required|exists:rents,id',
             'keluhan' => 'required|string',
             'gambar_keluhan' => 'nullable|image|max:2048',
@@ -87,6 +87,11 @@ class ComplaintController extends Controller
     public function show(Request $request, Rent $rent, User $user, Complaint $complaint)
     {
         return view('dashboard.keluhan.detail', compact('request','complaint', 'user', 'rent'));
+    }
+ 
+    public function detail(Request $request, Rent $rent, User $user, Complaint $complaint)
+    {
+        return view('dashboard.homepage.detail_keluhan', compact('request','complaint', 'user', 'rent'));
     }
 
     public function edit(Request $request, Complaint $complaint, User $user, Rent $rent)

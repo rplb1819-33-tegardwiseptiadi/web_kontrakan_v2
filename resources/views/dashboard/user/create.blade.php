@@ -27,7 +27,7 @@
                                     @csrf
 
                                     <!-- Name -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputName" class="form-label">Nama</label>
                                         <input type="text" name="name" class="form-control" id="inputName"
                                             placeholder="Masukkan Nama" value="{{ old('name') }}">
@@ -41,7 +41,7 @@
                                     </div>
 
                                     <!-- Email -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputEmail" class="form-label">Email</label>
                                         <input type="email" name="email" class="form-control" id="inputEmail"
                                             placeholder="Masukkan Email" value="{{ old('email') }}">
@@ -55,7 +55,7 @@
                                     </div>
 
                                     <!-- Password -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputPassword" class="form-label">Password</label>
                                         <input type="password" name="password" class="form-control" id="inputPassword"
                                             placeholder="Masukkan Password">
@@ -69,7 +69,7 @@
                                     </div>
 
                                     <!-- Umur -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputUmur" class="form-label">Umur</label>
                                         <input type="number" name="umur" class="form-control" id="inputUmur"
                                             placeholder="Masukkan Umur" value="{{ old('umur') }}">
@@ -83,7 +83,7 @@
                                     </div>
 
                                     <!-- Jenis Kelamin -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputGender" class="form-label">Jenis Kelamin</label>
                                         <div class="form-check">
                                             <input type="radio" class="form-check-input" name="jenis_kelamin" value="Pria"
@@ -105,7 +105,7 @@
                                     </div>
 
                                     <!-- Status Penghuni -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputStatusPenghuni" class="form-label">Status Penghuni</label>
                                         <select name="status_penghuni" id="inputStatusPenghuni" class="form-select">
                                             <option value="Sudah Menikah"
@@ -125,7 +125,7 @@
                                     </div>
 
                                     <!-- Gambar KTP -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputEmail5" class="form-label">Gambar KTP</label>
                                         <div class="col-sm-10"
                                             style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
@@ -145,7 +145,7 @@
                                     </div>
     
                                     <!-- Role -->
-                                    <div class="col-md-8">
+                                    <div class="col-md-8 offset-md-2">
                                         <label for="inputRole" class="form-label">Role</label>
                                         <select name="role_id" id="inputRole" class="form-select">
                                             @foreach ($roles as $role)

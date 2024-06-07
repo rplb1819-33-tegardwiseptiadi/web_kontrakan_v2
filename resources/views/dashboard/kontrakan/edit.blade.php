@@ -29,13 +29,13 @@
                                 @csrf
                                 @method('PUT')
                                 {{-- nama kontrakan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputName5" class="form-label">Nama Kontrakan</label>
                                     <input type="text" name="nama_kontrakan" class="form-control" id="inputName5"
                                         placeholder="Masukkan Nama Kontrakan"
                                         value="{{ old('nama_kontrakan', $rent->nama_kontrakan) }}">
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 offset-md-2">
                                     @if ($errors->has('nama_kontrakan'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             {{ $errors->first('nama_kontrakan') }}
@@ -46,7 +46,7 @@
                                 </div>
 
                                 {{-- Status Kontrakan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputPassword5" class="form-label">Status</label>
                                     <div class="form-check">
                                         <input type="radio" class="form-check-input" name="status_kontrakan"
@@ -73,10 +73,10 @@
                                         <input type="radio" class="form-check-input" name="status_kontrakan"
                                             value="Diperbaiki"
                                             {{ old('status_kontrakan', $rent->status_kontrakan) == 'Diperbaiki' ? 'checked' : '' }}
-                                            id="gridRadios8">
+                                            id="gridRadios8 offset-md-2">
                                         <label class="form-check-label" for="gridRadios6">Diperbaiki</label>
                                     </div>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-8 offset-md-2">
                                         @if ($errors->has('status_kontrakan'))
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                                 {{ $errors->first('status_kontrakan') }}
@@ -88,7 +88,7 @@
                                 </div>
 
                                 {{-- Tipe Kontrakan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputPassword5" class="form-label">Tipe Kontrakan</label>
                                     <div class="form-check">
                                         <input class="form-check-input" type="radio" name="tipe_kontrakan" value="Bulanan"
@@ -102,7 +102,7 @@
                                             id="gridRadios2">
                                         <label class="form-check-label" for="gridRadios2">Tahunan</label>
                                     </div>
-                                    <div class="col-lg-8">
+                                    <div class="col-lg-8 offset-md-2">
                                         @if ($errors->has('tipe_kontrakan'))
                                             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                                 {{ $errors->first('tipe_kontrakan') }}
@@ -114,13 +114,13 @@
                                 </div>
 
                                 {{-- kapasitas --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Kapasitas Kontrakan</label>
                                     <input type="number" name="kapasitas_kontrakan" class="form-control"
                                         id="inputEmail5" placeholder="Masukkan Kapasitas Kontrakan"
                                         value="{{ old('kapasitas_kontrakan', $rent->kapasitas_kontrakan) }}">
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 offset-md-2">
                                     @if ($errors->has('kapasitas_kontrakan'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             {{ $errors->first('kapasitas_kontrakan') }}
@@ -131,13 +131,13 @@
                                 </div>
 
                                 {{-- harga --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Harga Kontrakan</label>
                                     <input type="number" name="harga_kontrakan" class="form-control" id="inputName5"
                                         placeholder="Masukkan Harga Kontrakan"
                                         value="{{ old('harga_kontrakan', $rent->harga_kontrakan) }}">
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 offset-md-2">
                                     @if ($errors->has('harga_kontrakan'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             {{ $errors->first('harga_kontrakan') }}
@@ -149,13 +149,13 @@
 
 
                                 {{-- alamat kontrakan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputPassword5" class="form-label">Alamat Kontrakan</label>
                                     <input type="text" class="form-control" id="inputEmail5"
                                         placeholder="Masukkan Alamat Kontrakan"
                                         name="alamat_kontrakan"value="{{ old('alamat_kontrakan', $rent->alamat_kontrakan) }}">
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 offset-md-2">
                                     @if ($errors->has('alamat_kontrakan'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             {{ $errors->first('alamat_kontrakan') }}
@@ -166,7 +166,7 @@
                                 </div>
 
                                 {{-- gambar kontrakan --}}
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto Kontrakan</label>
                                     <div class="col-sm-10" style="max-width: 300px; max-height: 300px;">
                                         <img src="{{ asset('assets/upload/gambar_kontrakan/' . $rent->gambar_kontrakan) }}"

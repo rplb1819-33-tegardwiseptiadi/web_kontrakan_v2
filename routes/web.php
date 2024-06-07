@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/main-home', function () {
+Route::get('/', function () {
     $rents = Rent::all(); // Ambil semua data kontrakan
     return view('main_home', compact('rents'));
 })->name('main-home');
@@ -49,6 +49,8 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', "middleware" => ["a
     
     //route keluhan
     Route::resource('complaints', ComplaintController::class);
+    Route::get('complaints/{complaint}/detail', [ComplaintController::class, 'detail'])->name('complaints.detail');
+
 
     //route kontrakan
     Route::resource('rents', RentController::class);
