@@ -30,32 +30,40 @@
                               <div class="card-body">
                                   <h5 class="card-title" style="text-align: center;">INPUT DATA TRANSAKSI</h5>
                                   <!-- Multi Columns Form -->
-                                  <form class="row g-3" action="{{ route('dashboard.transactions.store') }}" method="POST"
+                                  <form id="formTambahTransaksi" class="row g-3"
+                                      action="{{ route('dashboard.transactions.store') }}" method="POST"
                                       enctype="multipart/form-data">
                                       @csrf
 
-                                      {{-- Nama Transaksi  --}}
+                                      {{-- Nama Transaksi --}}
                                       <div class="col-md-8 offset-md-2">
-                                          <label for="selectNamaPenghuni" class="form-label">Transaksi Atas Nama
-                                              :</label>
+                                          <label for="selectNamaPenghuni" class="form-label">Transaksi Atas Nama :</label>
+
+                                          {{-- Debugging line --}}
+                                          {{-- @dd($hasNonAdminRole) --}}
+
                                           @if (auth()->user()->role_id == 1)
-                                              {{-- Tampilkan dropdown untuk memilih penghuni --}}
+                                              {{-- Tampilkan dropdown untuk memilih penghuni jika ada role selain administrator --}}
+
                                               <select id="selectNamaPenghuni" class="form-select" name="user_id">
                                                   <option selected value="">PILIH PENGHUNI</option>
                                                   @foreach ($users as $user)
-                                                      <option value="{{ $user->id }}">
-                                                          {{ $user->name }}
-                                                      </option>
+                                                      @if ($user->role->name != 'administrator')
+                                                          {{-- Periksa nama role --}}
+                                                          <option value="{{ $user->id }}">
+                                                              {{ $user->name }}
+                                                          </option>
+                                                      @endif
                                                   @endforeach
                                               </select>
-                                          @elseif (auth()->user()->role_id == 2)
+                                          @else
                                               {{-- Tampilkan input readonly untuk tipe kontrakan berdasarkan username yang login --}}
                                               <input type="text" class="form-control" value="{{ auth()->user()->name }}"
                                                   readonly>
                                               <input type="hidden" name="user_id" class="form-control"
                                                   value="{{ auth()->user()->id }}" readonly>
-
                                           @endif
+
                                           <div class="col-lg-7" style="margin-top:10px;">
                                               @if ($errors->has('user_id'))
                                                   <div class="alert alert-danger alert-dismissible fade show"
@@ -67,6 +75,7 @@
                                               @endif
                                           </div>
                                       </div>
+
 
                                       {{-- tgl transaksi --}}
                                       <div class="col-md-8 offset-md-2">
@@ -199,9 +208,9 @@
 
                                       <div class="col-md-8 offset-md-2">
                                           <label for="inputEmail5" class="form-label">Foto Transaksi</label>
-                                          <div class="col-sm-8"
-                                              style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
-                                              <img src="" class="img-thumbnail d-none" id="previewTRANSAKSIimg">
+                                          <div class="col-sm-8">
+                                              <img src="" class="img-thumbnail d-none"
+                                                  style="max-width: 300px; max-height: 300px;" id="previewTRANSAKSIimg">
                                           </div>
 
                                           <div class="col-sm-8 offset-md-2">
@@ -216,7 +225,7 @@
                                           </div>
                                       </div>
 
-                                      <div class="col-6" style="margin-left: 30%;">
+                                      <div class="col-6" style="margin-left: 40%;">
                                           <button class="btn btn-success" type="submit">
                                               <i class="bi bi-person-plus"></i>
                                               Tambah Data
@@ -238,9 +247,12 @@
       </main><!-- End #main -->
   @endsection
 
+
   <!-- Your HTML content here -->
 
   @push('addon-script')
+      <!-- Pastikan Anda menyertakan SweetAlert2 di halaman Anda -->
+      <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script>
           $("#selectNamaKontrakan").on("change", function() {
               let idRent = $(this).val();
@@ -264,6 +276,96 @@
 
           // Your other JavaScript functions here
       </script>
-      {{-- kode script dan alert Transaksi --}}
-      @include('includes.scriptsTransaction')
+
+
+      <script>
+          $(document).ready(function() {
+              // AJAX untuk mengambil data kontrakan
+              $("#selectNamaKontrakan").on("change", function() {
+                  let rent_id = $(this).val();
+                  $.ajax({
+                      url: "/api/transaksi/" + rent_id,
+                      dataType: "json",
+                      success: function(data) {
+                          console.log(data);
+                          $("#labeljeniskontrakan").val(data.tipe_kontrakan);
+                          $("#harga_perbulan").val(data.harga_kontrakan);
+                          hitungTotalHarga();
+                      },
+                      error: function(xhr) {
+                          console.log(xhr.responseJSON);
+                      }
+                  });
+              });
+
+              // Menghitung total harga dan kembalian saat input berubah
+              $("#jml_sewa_bulan, #total_bayar").on("input", function() {
+                  hitungTotalHarga();
+                  hitungKembalian();
+              });
+
+              function hitungTotalHarga() {
+                  let lama_sewa = $("#jml_sewa_bulan").val();
+                  let harga_per_bulan = $("#harga_perbulan").val();
+                  let total_harga = lama_sewa * harga_per_bulan;
+                  $("#total_harga").val(total_harga);
+              }
+
+              function hitungKembalian() {
+                  const total_harga = $("#total_harga").val();
+                  const bayar = $("#total_bayar").val();
+                  const kembalian = bayar - total_harga;
+
+                  $("#error_uang_bayar").remove();
+                  $("#success_uang_bayar").remove();
+
+                  if (kembalian < 0) {
+                      const err_msg = $(`
+                <div class="alert alert-danger alert-dismissible fade show mt-4" role="alert" id="error_uang_bayar">
+                    Jumlah Input Uang Pembayaran Kurang !!!
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`);
+                      $("#input_uang_bayar").append(err_msg);
+                  } else if (kembalian >= total_harga) {
+                      const success_msg = $(`
+                <div class="alert alert-success alert-dismissible fade show mt-4" role="alert" id="success_uang_bayar">
+                    Uang Anda cukup.
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                </div>`);
+                      $("#input_uang_bayar").append(success_msg);
+                  }
+
+                  $("#kembalian").val(kembalian);
+              }
+
+              // Konfirmasi saat submit form
+              $("#formTambahTransaksi").on("submit", function(e) {
+                  e.preventDefault(); // Mencegah form dari pengiriman default
+
+                  // Mengambil nama pengguna dari input teks atau dropdown
+                  let userName = '';
+                  if ({{ auth()->user()->role_id }} == 1) {
+                      userName = $("select[name='user_id'] option:selected").text();
+                  } else {
+                      userName = $("input[name='user_id']").prev("input[type='text']").val();
+                  }
+
+                  Swal.fire({
+                      title: 'Konfirmasi',
+                      html: `Apakah Anda yakin ingin menambah transaksi atas nama <strong>${userName}</strong>?`, // Gunakan backticks dan ${} untuk interpolasi
+                      icon: 'warning',
+                      showCancelButton: true,
+                      confirmButtonColor: '#3085d6',
+                      cancelButtonColor: '#d33',
+                      confirmButtonText: 'Ya, Ubah!',
+                      cancelButtonText: 'Batal'
+                  }).then((result) => {
+                      if (result.isConfirmed) {
+                          // Kirim formulir jika pengguna mengonfirmasi
+                          $(this).off('submit').submit();
+                      }
+                  });
+              });
+          });
+      </script>
   @endpush

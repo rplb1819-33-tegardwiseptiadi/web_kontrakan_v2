@@ -3,8 +3,8 @@
 
     <div class="d-flex align-items-center justify-content-between">
         <a href="index.html" class="logo d-flex align-items-center">
-            <img src="{{ asset('assets_bootstrap_staff/img/icons/icon.png') }}" alt="">
-            <span class="d-none d-lg-block">KONSU APP</span>
+            <img src="{{ asset('assets/img/icon_logo/side_nav.png') }}" alt="">
+            <span class="d-none d-lg-block">KONSU</span>
         </a>
         <i class="bi bi-list toggle-sidebar-btn"></i>
         <li class="nav-item d-block d-lg" style="margin:30px;">
@@ -46,15 +46,9 @@
 
             <li class="nav-item dropdown pe-3">
                 <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#" data-bs-toggle="dropdown">
-                    @if (auth()->user()->jenis_kelamin == 'Perempuan')
-                        <img src="{{ asset('assets_landingpage/img/team/team-2.jpg') }}" alt="Profile"
+                       <img src="{{ asset('assets/upload/gambar_profil/'. auth()->user()->gambar_profil)  }}" alt="Profile"
                             class="rounded-circle">
-                    @elseif(auth()->user()->jenis_kelamin == 'Pria')
-                        <img src="{{ asset('assets_landingpage/img/team/team-1.jpg') }}" alt="Profile"
-                            class="rounded-circle">
-                    @endif
-
-                    <span class="d-none d-md-block dropdown-toggle ps-2">Halo {{ auth()->user()->name }}
+                       <span class="d-none d-md-block dropdown-toggle ps-2">Halo {{ auth()->user()->name }}
                     </span>
                 </a><!-- End Profile Iamge Icon -->
 

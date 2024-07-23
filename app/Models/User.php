@@ -25,6 +25,7 @@ class User extends Authenticatable
         'jenis_kelamin', 
         'status_penghuni', 
         'gambar_ktp', 
+        'gambar_profil', 
         'role_id',
         'email_verified_at', // Tambahkan ini
     ];
@@ -51,7 +52,7 @@ class User extends Authenticatable
 
     public function role(): \Illuminate\Database\Eloquent\Relations\BelongsTo
     {
-        return $this->belongsTo(Role::class, 'role_id');
+        return $this->belongsTo(Role::class);
     }
 
     public function isAdmin(): bool
@@ -74,6 +75,7 @@ class User extends Authenticatable
     {
         return $this->hasMany(Transaction::class);
     }
+ 
 
 
 }

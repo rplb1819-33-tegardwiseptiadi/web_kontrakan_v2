@@ -66,9 +66,9 @@
                                 <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto Kontrakan</label>
                                     <div class="col-sm-10"
-                                        style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
+                                       >
                                         <img src="{{ asset('assets/upload/gambar_kontrakan/' . $rent->gambar_kontrakan) }}"
-                                            class="img-thumbnail" id="previewKONTRAKANimg">
+                                            class="img-thumbnail" style="max-width: 400px; max-height: 400px;" id="previewKONTRAKANimg">
                                         <input type="text" name="nama_barang" class="form-control"
                                             id="validationDefault01" value="{{ $rent->gambar_kontrakan }}" readonly>
                                     </div>

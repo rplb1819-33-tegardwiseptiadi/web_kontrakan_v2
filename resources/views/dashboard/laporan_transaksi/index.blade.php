@@ -56,7 +56,7 @@
                                                 <th scope="col">Status Transaksi</th>
                                                 <th scope="col">Nama Kontrakan</th>
                                                 <th scope="col">Tipe Kontrakan</th>
-                                                <th scope="col">Harga (/Bulan)</th>
+                                                <th scope="col">Harga</th>
                                                 <th scope="col">Lama Sewa</th>
                                                 <th scope="col">Total Harga</th>
                                                 <th scope="col">Total Bayar</th>
@@ -67,7 +67,7 @@
                                             @forelse ($transactions as $transaksi)
                                                 <tr>
                                                     <td scope="row">{{ $loop->iteration }}</td>
-                                                    <td>{{ $transaksi->occupant?->nama_penghuni }}</td>
+                                                    <td>{{ $transaksi->user?->name }}</td>
                                                     <td>{{ $transaksi->tgl_transaksi }}</td>
                                                     <td>
                                                         @if ($transaksi->status_transaksi == 'Sudah Divalidasi')
@@ -75,14 +75,21 @@
                                                                 class="btn btn-success">{{ $transaksi->status_transaksi }}</button>
                                                         @elseif ($transaksi->status_transaksi == 'Belum Divalidasi')
                                                             <button type="button"
-                                                                class="btn btn-primary">{{ $transaksi->status_transaksi }}</button>
+                                                                class="btn btn-danger">{{ $transaksi->status_transaksi }}</button>
                                                         @endif
                                                     </td>
                                                     <td>{{ $transaksi->rent?->nama_kontrakan }}</td>
                                                     <td>{{ $transaksi->rent?->tipe_kontrakan }}</td>
                                                     <td> Rp{{ number_format($transaksi->rent?->harga_kontrakan, 2, ',', '.') }}
                                                     </td>
-                                                    <td>{{ $transaksi->jml_sewa_bulan }} Bulan</td>
+
+                                                    @if ($transaksi->rent->tipe_kontrakan == 'Bulanan')
+                                                        <td>{{ $transaksi->jml_sewa_bulan }} Bulan</td>
+                                                    @endif
+                                                    @if ($transaksi->rent->tipe_kontrakan == 'Tahunan')
+                                                        <td>{{ $transaksi->jml_sewa_bulan }} Tahun</td>
+                                                    @endif
+
                                                     <td> Rp{{ number_format($transaksi->total_harga, 2, ',', '.') }}
                                                     </td>
                                                     <td> Rp{{ number_format($transaksi->total_bayar, 2, ',', '.') }}

@@ -28,10 +28,8 @@
                                     <label for="validationDefault01" class="form-label">PERAN :</label>
                                     <input type="text" name="name" class="form-control" id="validationDefault01"
                                         placeholder="Isi Nama Peran">
-                                </div>
-                                <div class="col-lg-8 offset-md-2">
                                     @if ($errors->has('name'))
-                                        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
                                             {{ $errors->first('name') }}
                                             <button type="button" class="btn-close" data-bs-dismiss="alert"
                                                 aria-label="Close"></button>
@@ -49,7 +47,7 @@
                                         @endforeach
                                     </select>
                                     @error('permissions')
-                                        <span class="text-danger">{{ $message }}</span>
+                                        <div class="invalid-feedback">{{ $message }}</div>
                                     @enderror
                                 </div>
 
@@ -64,7 +62,6 @@
                                     </a>
                                 </div>
                             </form>
-
                         </div>
                     </div>
                 </div>
@@ -74,34 +71,4 @@
 @endsection
 
 {{-- kode alert user --}}
-{{-- @include('includes.scriptsRoles') --}}
-
-@push('addon-script')
-    <!-- SCRIPT SELECT PICKER -->
-    <script src="{{ asset('assets/virtual-select-master/virtual-select.min.js') }}"></script>
-
-    <script>
-        VirtualSelect.init({
-            ele: '#multipleSelect'
-        });
-    </script>
-
-    <script>
-        document.getElementById('roleForm').addEventListener('submit', function(event) {
-            event.preventDefault(); // Mencegah form submit langsung
-            Swal.fire({
-                title: 'Apakah Anda yakin?',
-                text: "Data akan ditambahkan!",
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#308 offset-md-25d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, tambahkan!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    this.submit(); // Melanjutkan submit form jika user mengonfirmasi
-                }
-            });
-        });
-    </script>
-@endpush
+@include('includes.scriptsRoles')

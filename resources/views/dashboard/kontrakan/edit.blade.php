@@ -168,9 +168,9 @@
                                 {{-- gambar kontrakan --}}
                                 <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto Kontrakan</label>
-                                    <div class="col-sm-10" style="max-width: 300px; max-height: 300px;">
+                                    <div class="col-sm-10">
                                         <img src="{{ asset('assets/upload/gambar_kontrakan/' . $rent->gambar_kontrakan) }}"
-                                            class="img-thumbnail" id="previewKONTRAKANimg">
+                                            class="img-thumbnail" style="max-width: 300px; max-height: 300px;" id="previewKONTRAKANimg">
                                     </div>
 
                                     <div class="col-sm-12">
@@ -189,7 +189,7 @@
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">
                                     <i class="bi bi-save"></i>
-                                    Update Data
+                                    Edit Data
                                     </button>
                                     <a href="{{ route('dashboard.rents.index') }}" class="btn btn-danger">
                                     <i class="bi bi-x-lg"></i>

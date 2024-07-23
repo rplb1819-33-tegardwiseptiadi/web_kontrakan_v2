@@ -17,7 +17,9 @@
             padding: 20px;
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             text-align: center;
         }
 
@@ -88,11 +90,17 @@
                 <td>Status Pembayaran</td>
                 <td>Nama Kontrakan</td>
                 <td>Tipe Kontrakan</td>
-                <td>Harga (/Bulan)</td>
+                @if ($transaction->rent->tipe_kontrakan == 'Bulanan')
+                    <td>Harga ( /Bulan)</td>
+                @endif
+                @if ($transaction->rent->tipe_kontrakan == 'Tahunan')
+                    <td>Harga ( /Tahun)</td>
+                @endif
                 <td>Lama Sewa</td>
-                <td>Total Harga 
-                <br>
-                (*Jumlah Bulan)</td>
+                <td>Total Harga
+                    <br>
+                    (*Jumlah Bulan)
+                </td>
             </tr>
         </thead>
         <tbody>
@@ -103,7 +111,15 @@
                 <td>{{ $transaction->rent->nama_kontrakan }}</td>
                 <td>{{ $transaction->rent->tipe_kontrakan }}</td>
                 <td>Rp{{ number_format($transaction->harga_perbulan, 2, ',', '.') }}</td>
-                <td>{{ $transaction->jml_sewa_bulan }} Bulan</td>
+
+                @if ($transaction->rent->tipe_kontrakan == 'Bulanan')
+                    <td>{{ $transaction->jml_sewa_bulan }} Bulan</td>
+                @endif
+                @if ($transaction->rent->tipe_kontrakan == 'Tahunan')
+                    <td>{{ $transaction->jml_sewa_bulan }} Tahun</td>
+                @endif
+
+
                 <td>Rp{{ number_format($transaction->total_harga, 2, ',', '.') }}</td>
             </tr>
         </tbody>
@@ -126,18 +142,19 @@
     <br>
     <h1>KONSU APP</h1>
     <h3>
-        Terima kasih telah berbelanja di KONSU APP!
+        Terima kasih telah menggunakan KONSU APP!
         <br>
         Kami mengucapkan terima kasih atas kunjungan, kepercayaan, dan dukungan Anda.
         <br>
-        Kami senang dapat memberikan pelayanan terbaik dan produk berkualitas.
-    </h3> 
+        Kami senang dapat memberikan pelayanan terbaik dan pengalaman kontrakan yang berkualitas.
+    </h3>
+
 
     <!-- SCRIPT UNTUK PRINT -->
     <script type="text/javascript">
         window.print();
     </script>
-    
+
 
 </body>
 

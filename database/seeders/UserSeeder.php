@@ -32,6 +32,7 @@ class UserSeeder extends Seeder
                 'jenis_kelamin' => 'Pria',
                 'status_penghuni' => 'Sudah Menikah',
                 'gambar_ktp' => $faker->imageUrl(),
+                'gambar_profil' => $faker->imageUrl(),
                 'role_id' => $adminRole->id,
             ]);
 
@@ -45,17 +46,19 @@ class UserSeeder extends Seeder
                 'jenis_kelamin' => 'Wanita',
                 'status_penghuni' => 'Belum Menikah',
                 'gambar_ktp' => $faker->imageUrl(),
+                'gambar_profil' => $faker->imageUrl(),
                 'role_id' => $userRole->id,
             ]);
 
-            User::factory(3)->create()->each(function ($user) use ($faker) {
-                $user->update([
-                    'umur' => $faker->numberBetween(20, 50),
-                    'jenis_kelamin' => $faker->randomElement(['Pria', 'Wanita']),
-                    'status_penghuni' => $faker->randomElement(['Belum Menikah', 'Sudah Menikah']),
-                    'gambar_ktp' => $faker->imageUrl(),
-                ]);
-            });
+            // User::factory(4)->create()->each(function ($user) use ($faker) {
+            //     $user->update([
+            //         'umur' => $faker->numberBetween(20, 50),
+            //         'jenis_kelamin' => $faker->randomElement(['Pria', 'Wanita']),
+            //         'status_penghuni' => $faker->randomElement(['Belum Menikah', 'Sudah Menikah']),
+            //         'gambar_ktp' => $faker->imageUrl(),
+            //         'gambar_profil' => $faker->imageUrl()
+            //     ]);
+            // });
 
         } else {
             // Role tidak ditemukan, tambahkan logika penanganan error jika diperlukan

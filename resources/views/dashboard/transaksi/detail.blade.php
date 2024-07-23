@@ -11,7 +11,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Dashboard</a></li>
-                      <li class="breadcrumb-item"><a href="{{ route('dashboard.transactions.index') }}">Transaksi</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.transactions.index') }}">Transaksi</a></li>
                     <li class="breadcrumb-item active">Detail Transaksi</li>
                 </ol>
             </nav>
@@ -26,46 +26,62 @@
                             <h5 class="card-title" style="text-align: center;">DETAIL DATA TRANSAKSI</h5>
 
                             <!-- Edit Form -->
-                            <form class="row g-3"> 
-                                    <div class="col-md-5">
-                                        <label for="inputName5" class="form-label">Transaksi Atas Nama</label>
-                                        <input type="text" name="nama_penghuni" class="form-control" id="inputName5"
-                                            value="{{ $transaction->user->name }}" readonly>
-                                    </div>
-                                    <div class="col-md-5">
-                                        <label for="inputEmail5" class="form-label">Tanggal Transaksi</label>
-                                        <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
-                                            value="{{ $transaction->tgl_transaksi }}" readonly>
-                                    </div>  
-                                    <div class="col-md-10">
-                                        <label for="inputEmail5" class="form-label">Status Transaksi</label>
-                                        <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
-                                            value="{{ $transaction->status_transaksi }}" readonly>
-                                    </div>  
-                                    <div class="col-md-5">
-                                        <label for="inputEmail5" class="form-label">Nama Kontrakan</label>
-                                        <input type="text" name="umur_penghuni" class="form-control" id="inputEmail5"
-                                            value="{{ $transaction->rent->nama_kontrakan }}" readonly>
-                                    </div>
+                            <form class="row g-3">
+                                <div class="col-md-5">
+                                    <label for="inputName5" class="form-label">Transaksi Atas Nama</label>
+                                    <input type="text" name="nama_penghuni" class="form-control" id="inputName5"
+                                        value="{{ $transaction->user->name }}" readonly>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="inputEmail5" class="form-label">Tanggal Transaksi</label>
+                                    <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
+                                        value="{{ $transaction->tgl_transaksi }}" readonly>
+                                </div>
+                                <div class="col-md-10">
+                                    <label for="inputEmail5" class="form-label">Status Transaksi</label>
+                                    <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
+                                        value="{{ $transaction->status_transaksi }}" readonly>
+                                </div>
+                                <div class="col-md-5">
+                                    <label for="inputEmail5" class="form-label">Nama Kontrakan</label>
+                                    <input type="text" name="umur_penghuni" class="form-control" id="inputEmail5"
+                                        value="{{ $transaction->rent->nama_kontrakan }}" readonly>
+                                </div>
 
-                                    <div class="col-md-5">
-                                        <label for="inputEmail5" class="form-label">Jenis Kontrakan</label>
-                                        <input type="text" name="jenis_kelamin" class="form-control" id="inputEmail5"
-                                            value="{{ $transaction->rent->tipe_kontrakan }}" readonly>
-                                    </div>
- 
+                                <div class="col-md-5">
+                                    <label for="inputEmail5" class="form-label">Jenis Kontrakan</label>
+                                    <input type="text" name="jenis_kelamin" class="form-control" id="inputEmail5"
+                                        value="{{ $transaction->rent->tipe_kontrakan }}" readonly>
+                                </div>
+
+                                <!-- Kondisi untuk menampilkan harga dan lama sewa -->
+                                @if ($transaction->rent->tipe_kontrakan == 'Bulanan')
                                     <div class="col-md-5">
                                         <label for="inputEmail5" class="form-label">Harga (/Bulan)</label>
                                         <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
-                                            value="Rp {{ number_format($transaction->harga_perbulan, 2, ',', '.') }}" readonly>
+                                            value="Rp {{ number_format($transaction->harga_perbulan, 2, ',', '.') }}"
+                                            readonly>
                                     </div>
 
                                     <div class="col-md-5">
                                         <label for="inputEmail5" class="form-label">Lama Sewa (/Bulan)</label>
                                         <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                             value="{{ $transaction->jml_sewa_bulan }} Bulan" readonly>
-                                    </div> 
+                                    </div>
+                                @elseif ($transaction->rent->tipe_kontrakan == 'Tahunan')
+                                    <div class="col-md-5">
+                                        <label for="inputEmail5" class="form-label">Harga (/Tahun)</label>
+                                        <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
+                                            value="Rp {{ number_format($transaction->harga_perbulan * 12, 2, ',', '.') }}"
+                                            readonly>
+                                    </div>
 
+                                    <div class="col-md-5">
+                                        <label for="inputEmail5" class="form-label">Lama Sewa (/Tahun)</label>
+                                        <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
+                                            value="{{ $transaction->jml_sewa_bulan }} Tahun" readonly>
+                                    </div>
+                                @endif
 
                                 <div class="col-md-10">
                                     <label for="inputEmail5" class="form-label">Total Harga</label>
@@ -97,8 +113,8 @@
                                 </div>
                                 <div class="text-center">
                                     <a href="{{ route('dashboard.transactions.index') }}" class="btn btn-danger">
-                                     <i class="bi bi-x-lg"></i>
-                                    Kembali
+                                        <i class="bi bi-x-lg"></i>
+                                        Kembali
                                     </a>
                                 </div>
                         </div>

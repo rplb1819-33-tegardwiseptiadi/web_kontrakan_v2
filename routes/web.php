@@ -40,13 +40,13 @@ Route::get('/homepage', [HomeController::class, 'index'])->name('homepage');
 
 Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', "middleware" => ["auth"]], function () {
     // route hak akses
-    Route::resource('users', UserController::class);
+    Route::resource('users', UserController::class); 
     Route::resource('roles', RoleController::class);
     Route::resource('permissions', PermissionController::class);
 
     //route penghuni
     Route::resource('occupants', OccupantController::class);
-    
+
     //route keluhan
     Route::resource('complaints', ComplaintController::class);
     Route::get('complaints/{complaint}/detail', [ComplaintController::class, 'detail'])->name('complaints.detail');
@@ -57,16 +57,13 @@ Route::group(['prefix' => 'dashboard', 'as' => 'dashboard.', "middleware" => ["a
 
     //route transaksi
     Route::resource('transactions', TransactionController::class);
-    Route::get('/transaction/print/bayar/{transaction}', [TransactionController::class, 'print'])->name('transaction.print'); 
+    Route::get('/transaction/print/bayar/{transaction}', [TransactionController::class, 'print'])->name('transaction.print');
     // Route::get('/transactions/{transaction}/print', [TransactionController::class, 'print'])->name('dashboard.transaction.print');
 
     Route::resource('laporan_transaksi', TransactionReportController::class);
     Route::get("print-data-laporan-form", [TransactionReportController::class, "cetakLaporanForm"])->name('laporan_transaksi.print-laporan-form');
     Route::post('print-data-laporan-pertanggal/{tglawal?}/{tglakhir?}', [TransactionReportController::class, "cetakLaporanPertanggal"])->name('laporan_transaksi.print-data-laporan-pertanggal');
-    
+
     // route activity log
     Route::resource('log_activity', ActivityLogController::class);
-    
 });
- 
- 

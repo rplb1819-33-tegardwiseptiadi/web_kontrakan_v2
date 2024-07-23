@@ -19,7 +19,7 @@
                 <div class="col-lg-12">
                     <div class="card">
                         <div class="card-body">
-                            <h5 class="card-title" style="text-align: center;">DETAIL KELUHAN</h5>
+                            <h5 class="card-title" style="text-align: center;">DETAIL DATA KELUHAN</h5>
                             <div class="row">
                                 <div class="col-md-8 offset-md-2">
                                     <div class="form-group">
@@ -32,7 +32,11 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="keluhan" class="form-label">Keluhan</label>
-                                        <textarea id="keluhan" name="keluhan" class="form-control" rows="3" readonly>{{ $complaint->keluhan }}</textarea>
+                                        <input type="text" id="keluhan" name="keluhan" class="form-control" rows="3" value="{{ $complaint->keluhan }}" readonly>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="keluhan" class="form-label">Tanggal Keluhan</label>
+                                        <input type="text" id="tgl_keluhan" name="keluhan" class="form-control" rows="3" value="{{ $complaint->tgl_keluhan }}" readonly>
                                     </div>
                                     <div class="form-group">
                                         <label for="status" class="form-label">Status Keluhan</label>

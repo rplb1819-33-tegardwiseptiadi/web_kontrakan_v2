@@ -39,6 +39,7 @@ class RegisterController extends Controller
             'jenis_kelamin' => ['required', 'in:Pria,Wanita'],
             'status_penghuni' => ['required', 'in:Sudah Menikah,Belum Menikah'],
             'gambar_ktp' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
+            'gambar_profil' => ['required', 'image', 'mimes:jpeg,png,jpg,gif', 'max:2048'],
             'role_id' => ['required', 'exists:roles,id'],
         ]);
     }
@@ -52,6 +53,14 @@ class RegisterController extends Controller
         } else {
             $data['gambar_ktp'] = null;
         }
+     
+        if (request()->hasFile('gambar_profil')) {
+            $gambarProfile = request()->file('gambar_profil')->getClientOriginalName();
+            request()->file('gambar_profil')->move(public_path('/assets/upload/gambar_profil/'), $gambarProfile);
+            $data['gambar_profil'] = $gambarProfile;
+        } else {
+            $data['gambar_profil'] = null;
+        }
     
         $user = User::create([
             'name' => $data['name'],
@@ -61,6 +70,7 @@ class RegisterController extends Controller
             'jenis_kelamin' => $data['jenis_kelamin'],
             'status_penghuni' => $data['status_penghuni'],
             'gambar_ktp' => $data['gambar_ktp'],
+            'gambar_profil' => $data['gambar_profil'],
             'role_id' => $data['role_id'],
             'email_verified_at' => now(), // Mengisi email_verified_at dengan waktu sekarang
             'remember_token' => Str::random(10), // Mengisi remember_token dengan token acak

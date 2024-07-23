@@ -1,12 +1,12 @@
 @extends('layout.main')
 
-@section('title', 'PRINT LAPORAN | KUYRAPC')
+@section('title', 'PRINT LAPORAN BULANAN')
 
 @section('container')
   <main id="main" class="main">
 
     <div class="pagetitle">
-      <h1>PRINT DATA LAPORAN TRANSAKSI | KUYRAPC</h1>
+      <h1>PRINT DATA LAPORAN TRANSAKSI</h1>
       <nav>
         <ol class="breadcrumb">
           <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Dashboard</a></li>
@@ -15,6 +15,7 @@
         </ol>
       </nav>
     </div><!-- End Page Title -->
+
     <section class="section">
       <div class="row">
         <div class="col-lg-12">
@@ -33,16 +34,16 @@
             <div class="card-body">
               <form action="#" class="form-row" id="formLaporan" method="POST">
                 @csrf
-                <h1 style="text-align:center; margin:10px">
-                  INPUT PRINT TRANSAKSI
-                </h1>
+                <h3 style="text-align:center; margin:10px">
+                  PRINT LAPORAN TRANSAKSI BULANAN
+                </h3>
                 <div class="col-md-10 mx-auto" style="margin:10px">
                   <div class="form-group">
                     <label for="tglAwal">Tanggal Awal <span class="text-red">*</span>:</label>
                     <input type="date" name="tgl_awal" id="tglAwal" class="form-control">
                   </div>
                   @error('tgl_awal')
-                  <span style="color:red;">{{ $message }}</span>
+                    <span style="color:red;">{{ $message }}</span>
                   @enderror
                 </div>
                 <div class="col-md-10 mx-auto" style="margin:10px">
@@ -51,7 +52,7 @@
                     <input type="date" name="tgl_akhir" id="tglAkhir" class="form-control">
                   </div>
                   @error('tgl_akhir')
-                  <span style="color:red;">{{ $message }}</span>
+                    <span style="color:red;">{{ $message }}</span>
                   @enderror
                 </div>
                 <div class="col-md-7 mx-auto" style="margin:10px">
@@ -65,6 +66,9 @@
         </div>
       </div>
     </section>
+
+  </main><!-- End #main -->
+
 @endsection
 
 @push('addon-script')

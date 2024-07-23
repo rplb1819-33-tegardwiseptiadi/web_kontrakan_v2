@@ -11,8 +11,8 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard.users.index') }}">Transaksi</a></li>
-                    <li class="breadcrumb-item active">Detail Akses User</li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.roles.index') }}">Peran User</a></li>
+                    <li class="breadcrumb-item active">Detail Peran User</li>
                 </ol>
             </nav>
         </div><!-- End Page Title -->

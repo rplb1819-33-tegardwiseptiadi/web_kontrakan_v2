@@ -29,7 +29,7 @@ class UserUpdateRequest extends FormRequest
                 "required",
                 Rule::in(["Pria", "Wanita"])
             ], 
-            'role_id' => 'required|exists:roles,id',
+            // 'role_id' => 'required|exists:roles,id',
         ];
     }
     public function messages(): array
@@ -41,8 +41,8 @@ class UserUpdateRequest extends FormRequest
             'name.min' => 'Nama harus lebih dari atau sama dengan :min karakter.',
             'email.required' => 'Email tidak boleh kosong.',
             'email.email' => 'Email tidak valid.',
-            'role_id.required' => 'Level tidak boleh kosong.',
-            'role_id.exist' => 'Role tidak ada di database',
+            // 'role_id.required' => 'Level tidak boleh kosong.',
+            // 'role_id.exist' => 'Role tidak ada di database',
             'password.min' => 'Password tidak boleh kurang dari :min karakter.', 
             'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong.',
             'jenis_kelamin.in' => 'Jenis Kelamin tidak terdaftar.',

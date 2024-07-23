@@ -25,4 +25,6 @@ class Rent extends Model
     {
         return $this->belongsTo(Occupant::class);
     }
+
+    
 }

@@ -33,6 +33,17 @@
                             </div>
                         </div>
 
+                        <div class=" row">
+                            <div class="col-sm-8">
+                                @if (session('Error'))
+                                    <div class="alert alert-danger" style="text-align: center; font-size:20px;">
+                                        {{ session('Error') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+
+
                         <!-- Recent Sales -->
                         <div class="col-12">
                             <div class="card recent-sales overflow-auto">
@@ -41,9 +52,9 @@
 
                                     {{-- Tombol Tambah --}}
                                     @can('kontrakan_create')
-                                        <div class="btn_tambah">    
+                                        <div class="btn_tambah">
                                             <a href="{{ route('dashboard.roles.create') }}" class="btn btn-success">
-                                        <i class="bi bi-person-plus"></i>
+                                                <i class="bi bi-person-plus"></i>
                                                 Tambah Data
                                             </a>
                                         </div>
@@ -53,7 +64,7 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Nama Peran</th> 
+                                                <th scope="col">Nama Peran</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -61,7 +72,7 @@
                                             @forelse ($roles as $peran)
                                                 <tr>
                                                     <td scope="row">{{ $loop->iteration }}</td>
-                                                    <td>{{ $peran->name }}</td> 
+                                                    <td>{{ $peran->name }}</td>
                                                     <td>
                                                         <div class="button-container">
                                                             {{-- Tombol Edit --}}
@@ -82,22 +93,25 @@
                                                                     </button>
                                                                 </a>
                                                             @endcan
+
                                                             {{-- Tombol Hapus --}}
-                                                            @can('user_delete')
-                                                                <form
-                                                                    action="{{ route('dashboard.roles.destroy', $peran->id) }}"
-                                                                    method="POST" style="display: inline;"
-                                                                    id="delete-form-{{ $peran->id }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="button" class="btn btn-danger"
-                                                                        data-name="{{ $peran->name }}"
-                                                                        onclick="confirmDelete(this)">
-                                                                        <i class="bi bi-trash3"></i>
-                                                                        HAPUS
-                                                                    </button>
-                                                                </form>
-                                                            @endcan
+                                                            @if ($peran->name != 'administrator')
+                                                                @can('user_delete')
+                                                                    <form
+                                                                        action="{{ route('dashboard.roles.destroy', $peran->id) }}"
+                                                                        method="POST" style="display: inline;"
+                                                                        id="delete-form-{{ $peran->id }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-name="{{ $peran->name }}"
+                                                                            onclick="confirmDelete(this)">
+                                                                            <i class="bi bi-trash3"></i>
+                                                                            HAPUS
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+                                                            @endif
                                                         </div>
                                 </div>
                                 </td>
@@ -117,38 +131,36 @@
 
             </div>
         </section>
- 
+
     </main><!-- End #main -->
 
-@endsection 
+@endsection
 
 @push('addon-script')
-{{-- kode sweetalert tombol delete peran user --}}
-<script>
-    function confirmDelete(button) {
-        var form = button.closest('form');
-        var name = button.getAttribute('data-name');
+    {{-- kode sweetalert tombol delete peran user --}}
+    <script>
+        function confirmDelete(button) {
+            var form = button.closest('form');
+            var name = button.getAttribute('data-name');
 
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            html: `<p style="font-size: 14px;">Anda akan menghapus data peran user <br> bernama <strong>${name}</strong>.</p>`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal',
-            customClass: {
-                title: 'swal-title-custom',
-                htmlContainer: 'swal-html-custom'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    }
-</script>
-
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                html: `<p style="font-size: 14px;">Anda akan menghapus data peran user <br> bernama <strong>${name}</strong>.</p>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    title: 'swal-title-custom',
+                    htmlContainer: 'swal-html-custom'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    </script>
 @endpush
-

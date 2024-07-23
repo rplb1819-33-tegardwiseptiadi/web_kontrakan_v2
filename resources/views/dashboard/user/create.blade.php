@@ -129,7 +129,7 @@
                                         <label for="inputEmail5" class="form-label">Gambar KTP</label>
                                         <div class="col-sm-10"
                                             style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
-                                            <img src="" class="img-thumbnail d-none" id="previewKTPimg">
+                                            <img src="" class="img-thumbnail " id="previewKTPimg">
                                         </div>
 
                                         <div class="col-sm-12">
@@ -138,6 +138,26 @@
                                                     class="custom-file-input @error('gambar_ktp') is-invalid @enderror"
                                                     id="gambarKTP">
                                                 @error('gambar_ktp')
+                                                    <div class="invalid-feedback">{{ $message }}</div>
+                                                @enderror
+                                            </div>
+                                        </div>
+                                    </div>
+                                   
+                                    <!-- Gambar Profile -->
+                                    <div class="col-md-8 offset-md-2">
+                                        <label for="inputEmail5" class="form-label">Gambar Profil</label>
+                                        <div class="col-sm-10"
+                                            style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
+                                            <img src="" class="img-thumbnail " id="previewPROFILEimg">
+                                        </div>
+
+                                        <div class="col-sm-12">
+                                            <div class="custom-file">
+                                                <input type="file" name="gambar_profil"
+                                                    class="custom-file-input @error('gambar_profil') is-invalid @enderror"
+                                                    id="gambarPROFILE">
+                                                @error('gambar_profil')
                                                     <div class="invalid-feedback">{{ $message }}</div>
                                                 @enderror
                                             </div>

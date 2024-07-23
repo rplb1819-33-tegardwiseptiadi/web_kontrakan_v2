@@ -53,10 +53,10 @@
                                         <thead>
                                             <tr>
                                                 <th scope="col">No</th>
-                                                <th scope="col">Nama Penghuni</th> 
-                                                <th scope="col">Nama Kontrakan</th> 
-                                                <th scope="col">Keluhan</th> 
-                                                <th scope="col">Status Keluhan</th> 
+                                                <th scope="col">Nama Penghuni</th>
+                                                <th scope="col">Nama Kontrakan</th>
+                                                <th scope="col">Keluhan</th>
+                                                <th scope="col">Status Keluhan</th>
                                                 <th scope="col">Aksi</th>
                                             </tr>
                                         </thead>
@@ -73,15 +73,16 @@
                                                                 class="btn btn-success">{{ $keluhan->status_keluhan }}</button>
                                                         @elseif ($keluhan->status_keluhan == 'Belum Divalidasi')
                                                             <button type="button"
-                                                                class="btn btn-danger">{{ $keluhan->status_keluhan }}</button> 
+                                                                class="btn btn-danger">{{ $keluhan->status_keluhan }}</button>
                                                         @endif
-                                                    </td> 
+                                                    </td>
                                                     <!-- <td><span class="badge bg-success">Approved</span></td> -->
                                                     <td>
                                                         <div class="button-container">
                                                             {{-- Tombol Edit --}}
                                                             @can('keluhan_edit')
-                                                                <a href="{{ route('dashboard.complaints.edit', $keluhan->id) }}">
+                                                                <a
+                                                                    href="{{ route('dashboard.complaints.edit', $keluhan->id) }}">
                                                                     <button type="button" class="btn btn-warning ">
                                                                         <i class="bi bi-pencil-square"></i>
                                                                         EDIT
@@ -90,7 +91,8 @@
                                                             @endcan
                                                             {{-- Tombol Detail --}}
                                                             @can('keluhan_show')
-                                                                <a href="{{ route('dashboard.complaints.show', $keluhan->id) }}">
+                                                                <a
+                                                                    href="{{ route('dashboard.complaints.show', $keluhan->id) }}">
                                                                     <button type="button" class="btn btn-primary ">
                                                                         <i class="bi bi-eye"></i>
                                                                         DETAIL
@@ -98,21 +100,23 @@
                                                                 </a>
                                                             @endcan
                                                             {{-- Tombol Hapus --}}
-                                                            @can('keluhan_delete')
-                                                                <form
-                                                                    action="{{ route('dashboard.complaints.destroy', $keluhan->id) }}"
-                                                                    method="POST" style="display: inline;"
-                                                                    id="delete-form-{{ $keluhan->id }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="button" class="btn btn-danger"
-                                                                        data-name="{{ $keluhan->user?->name }}"
-                                                                        onclick="confirmDelete(this)">
-                                                                        <i class="bi bi-trash3"></i>
-                                                                        HAPUS
-                                                                    </button>
-                                                                </form>
-                                                            @endcan
+                                                            @if ($keluhan->status_keluhan == 'Belum Divalidasi')
+                                                                @can('keluhan_delete')
+                                                                    <form
+                                                                        action="{{ route('dashboard.complaints.destroy', $keluhan->id) }}"
+                                                                        method="POST" style="display: inline;"
+                                                                        id="delete-form-{{ $keluhan->id }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-name="{{ $keluhan->user?->name }}"
+                                                                            onclick="confirmDelete(this)">
+                                                                            <i class="bi bi-trash3"></i>
+                                                                            HAPUS
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+                                                            @endif
                                                         </div>
                                 </div>
                                 </td>

@@ -2,8 +2,9 @@
 
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Support\Facades\Schema; 
+use Illuminate\Support\Facades\Schema;
 use App\Models\Role;
+
 return new class extends Migration
 {
     /**
@@ -14,14 +15,15 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignIdFor(Role::class)->constrained();
-            $table->string('name'); 
+            $table->string('name');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
             $table->integer('umur');
             $table->enum('jenis_kelamin', ['Pria', 'Wanita']);
             $table->enum('status_penghuni', ['Sudah Menikah', 'Belum Menikah']);
-            $table->string('gambar_ktp');
+            $table->string('gambar_ktp')->nullable();
+            $table->string('gambar_profil')->nullable();
             $table->rememberToken();
             $table->timestamps();
         });

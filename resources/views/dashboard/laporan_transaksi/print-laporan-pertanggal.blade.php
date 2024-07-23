@@ -21,7 +21,9 @@
             box-sizing: border-box;
         }
 
-        h1, h2, h3 {
+        h1,
+        h2,
+        h3 {
             text-align: center;
             margin-bottom: 20px;
         }
@@ -57,7 +59,8 @@
             page-break-inside: avoid;
         }
 
-        th, td {
+        th,
+        td {
             padding: 8px;
             text-align: center;
             border: 1px solid #ccc;
@@ -89,7 +92,13 @@
         }
 
         @media screen and (max-width: 600px) {
-            table, thead, tbody, th, td, tr {
+
+            table,
+            thead,
+            tbody,
+            th,
+            td,
+            tr {
                 display: block;
             }
 
@@ -137,12 +146,12 @@
                     <th scope="col">NAMA PENGHUNI</th>
                     <th scope="col">TGL TRANSAKSI</th>
                     <th scope="col">STATUS TRANSAKSI</th>
-                    <th scope="col">NAMA KONTRAKAN</th> 
-                    <th scope="col">HARGA (/BULAN)</th>
+                    <th scope="col">NAMA KONTRAKAN</th>
+                    <th scope="col">HARGA</th>
                     <th scope="col">LAMA SEWA</th>
                     <th scope="col">HARGA (*LAMA SEWA)</th>
-                    <th scope="col">TOTAL BAYAR</th> 
-                    <th scope="col">KEMBALIAN</th> 
+                    <th scope="col">TOTAL BAYAR</th>
+                    <th scope="col">KEMBALIAN</th>
                 </tr>
             </thead>
             <tbody>
@@ -150,7 +159,7 @@
                     <tr>
                         <th scope="row" data-header="NO">{{ $loop->iteration }}</th>
                         <td data-header="ID TRANSAKSI">TRS-{{ $transaksi->id }}</td>
-                        <td data-header="NAMA PENGHUNI">{{ $transaksi->occupant?->nama_penghuni }}</td>
+                        <td data-header="NAMA PENGHUNI">{{ $transaksi->user?->name }}</td>
                         <td data-header="TGL TRANSAKSI">{{ $transaksi->tgl_transaksi }}</td>
                         <td data-header="STATUS TRANSAKSI">
                             @if ($transaksi->status_transaksi == 'Sudah Divalidasi')
@@ -161,12 +170,19 @@
                                 {{ $transaksi->status_transaksi }}
                             @endif
                         </td>
-                        <td data-header="NAMA KONTRAKAN">{{ $transaksi->rent?->nama_kontrakan }}</td> 
-                        <td data-header="HARGA (/BULAN)">Rp{{ number_format($transaksi->harga_perbulan, 2, ',', '.') }}</td>
-                        <td data-header="LAMA SEWA">{{ $transaksi->jml_sewa_bulan }} BULAN</td>
+                        <td data-header="NAMA KONTRAKAN">{{ $transaksi->rent?->nama_kontrakan }}</td>
+                        <td data-header="HARGA">Rp{{ number_format($transaksi->harga_perbulan, 2, ',', '.') }}</td>
+
+                        @if ($transaksi->rent->tipe_kontrakan == 'Bulanan')
+                            <td data-header="LAMA SEWA">{{ $transaksi->jml_sewa_bulan }} BULAN</td>
+                        @endif
+                        @if ($transaksi->rent->tipe_kontrakan == 'Tahunan')
+                            <td data-header="LAMA SEWA">{{ $transaksi->jml_sewa_bulan }} TAHUN</td>
+                        @endif
+
                         <td data-header="TOTAL HARGA">Rp{{ number_format($transaksi->total_harga, 2, ',', '.') }}</td>
-                        <td data-header="TOTAL BAYAR">Rp{{ number_format($transaksi->total_bayar, 2, ',', '.') }}</td> 
-                        <td data-header="KEMBALIAN">Rp{{ number_format($transaksi->kembalian, 2, ',', '.') }}</td> 
+                        <td data-header="TOTAL BAYAR">Rp{{ number_format($transaksi->total_bayar, 2, ',', '.') }}</td>
+                        <td data-header="KEMBALIAN">Rp{{ number_format($transaksi->kembalian, 2, ',', '.') }}</td>
                     </tr>
                 @empty
                     <tr>
@@ -177,10 +193,12 @@
             <tfoot>
                 <tr>
                     <td colspan="8">Total Harga</td>
-                    <td class="right-align">Rp{{ number_format($cetakPertanggal->sum('total_harga'), 2, ',', '.') }}</td>
-                    <td class="right-align">Rp{{ number_format($cetakPertanggal->sum('total_bayar'), 2, ',', '.') }}</td>
+                    <td class="right-align">Rp{{ number_format($cetakPertanggal->sum('total_harga'), 2, ',', '.') }}
+                    </td>
+                    <td class="right-align">Rp{{ number_format($cetakPertanggal->sum('total_bayar'), 2, ',', '.') }}
+                    </td>
                     <td class="right-align">Rp{{ number_format($cetakPertanggal->sum('kembalian'), 2, ',', '.') }}</td>
-                </tr> 
+                </tr>
             </tfoot>
         </table>
     </div>

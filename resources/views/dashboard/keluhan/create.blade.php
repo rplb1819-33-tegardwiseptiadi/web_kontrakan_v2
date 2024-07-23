@@ -1,16 +1,16 @@
  @extends('layout.main')
 
- @section('title', 'TAMBAH KOMPLAIN')
+ @section('title', 'TAMBAH KELUHAN')
 
  @section('container')
      <main id="main" class="main">
          <div class="pagetitle">
-             <h1>Tambah Komplain</h1>
+             <h1>Tambah Keluhan</h1>
              <nav>
                  <ol class="breadcrumb">
                      <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Dashboard</a></li>
-                     <li class="breadcrumb-item"><a href="{{ route('dashboard.complaints.index') }}">Komplain</a></li>
-                     <li class="breadcrumb-item active">Tambah Komplain</li>
+                     <li class="breadcrumb-item"><a href="{{ route('dashboard.complaints.index') }}">Keluhan</a></li>
+                     <li class="breadcrumb-item active">Tambah Keluhan</li>
                  </ol>
              </nav>
          </div><!-- End Page Title -->
@@ -19,7 +19,7 @@
                  <div class="col-lg-12">
                      <div class="card">
                          <div class="card-body">
-                             <h5 class="card-title" style="text-align: center;">INPUT DATA KOMPLAIN</h5>
+                             <h5 class="card-title" style="text-align: center;">INPUT DATA KELUHAN</h5>
                              <!-- Multi Columns Form -->
                              <form id="formTambahKomplain" class="row g-3"
                                  action="{{ route('dashboard.complaints.store') }}" method="POST"
@@ -30,13 +30,15 @@
                                      <div class="col-md-8 offset-md-2 offset-md-2">
                                          <label for="inputUser" class="form-label">Pengguna</label>
                                          <select class="form-select" id="inputUser" name="user_id">
-                                             <option value="">Pilih Pengguna</option>
-                                             @foreach ($users as $user)
-                                                 <option value="{{ $user->id }}"
-                                                     {{ old('user_id') == $user->id ? 'selected' : '' }}>
-                                                     {{ $user->name }}
-                                                 </option>
-                                             @endforeach
+                                             <option selected value="">PILIH PENGHUNI</option>
+                                                  @foreach ($users as $user)
+                                                      @if ($user->role->name != 'administrator')
+                                                          {{-- Periksa nama role --}}
+                                                          <option value="{{ $user->id }}">
+                                                              {{ $user->name }}
+                                                          </option>
+                                                      @endif
+                                                  @endforeach
                                          </select>
                                          @error('user_id')
                                              <span class="text-danger">{{ $message }}</span>
@@ -77,6 +79,23 @@
                                          <span class="text-danger">{{ $message }}</span>
                                      @enderror
                                  </div>
+
+                                   {{-- tgl keluhan --}}
+                                      <div class="col-md-8 offset-md-2">
+                                          <label for="validationDefault01" class="form-label">Tanggal Keluhan :</label>
+                                          <input type="date" name="tgl_keluhan" class="form-control"
+                                              id="validationDefault01" value="{{ old('tgl_keluhan') }}">
+                                          <div class="col-lg-7" style="margin-top:10px;">
+                                              @if ($errors->has('tgl_keluhan'))
+                                                  <div class="alert alert-danger alert-dismissible fade show"
+                                                      role="alert">
+                                                      {{ $errors->first('tgl_keluhan') }}
+                                                      <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                          aria-label="Close"></button>
+                                                  </div>
+                                              @endif
+                                          </div>
+                                      </div>
 
                                  {{-- gambar_keluhan --}}
                                  <div class="col-md-8 offset-md-2">

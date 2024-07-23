@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use RealRashid\SweetAlert\Facades\Alert;
 use App\Models\Transaction;
 use App\Models\Rent;
+use App\Models\User;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
 use App\Http\Requests\RentStoreRequest;
@@ -14,14 +15,16 @@ class RentController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         $rents = Rent::all();
-        return view('dashboard.kontrakan.index', compact('rents'));
+        return view('dashboard.kontrakan.index', compact('user', 'rents'));
     }
-
+    
     // route tombol tambah
     public function create()
     {
-        return view('dashboard.kontrakan.create');
+        $user = auth()->user();
+        return view('dashboard.kontrakan.create',  compact('user'));
     }
 
     public function store(RentStoreRequest $request)
@@ -50,7 +53,8 @@ class RentController extends Controller
 
     public function edit(Rent $rent)
     {
-        return view('dashboard.kontrakan.edit', compact('rent'));
+        $user = auth()->user();
+        return view('dashboard.kontrakan.edit', compact('rent', 'user'));
     }
 
     /**
@@ -81,7 +85,8 @@ class RentController extends Controller
 
     public function show(Request $request, Rent $rent)
     {
-        return view('dashboard.kontrakan.detail', compact('request', 'rent'));
+        $user = auth()->user();
+        return view('dashboard.kontrakan.detail', compact('request', 'rent', 'user'));
     }
 
     public function destroy(Rent $rent)
@@ -93,8 +98,8 @@ class RentController extends Controller
             $activeTransactions = Transaction::where('rent_id', $rentId)->get();
     
             if ($activeTransactions->isNotEmpty()) {
-                Alert::error('Error', 'Kontrakan ini masih memiliki transaksi aktif.');
-                return redirect()->route('dashboard.rents.index')->with('error', 'Kontrakan ini masih memiliki transaksi aktif.');
+                Alert::error('Error', 'Kontrakan ini masih memiliki data transaksi & data keluhan aktif.');
+                return redirect()->route('dashboard.rents.index')->with('Error', 'Data Kontrakan Gagal Di Hapus!.');
             }
     
             $rent->delete();
@@ -111,7 +116,7 @@ class RentController extends Controller
             return redirect()->route('dashboard.rents.index')->with('status', 'Data Kontrakan Berhasil Dihapus!');
         } catch (\Exception $e) {
             Alert::error('Error', 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage());
-            return redirect()->route('dashboard.rents.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
+            return redirect()->route('dashboard.rents.index')->with('Error', 'Terjadi kesalahan saat menghapus data.');
         }
     }
     

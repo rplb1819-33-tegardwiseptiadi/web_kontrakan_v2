@@ -137,6 +137,20 @@
                         @enderror
                     </div>
 
+                    <div class="wrap-input100 validate-input m-b-23" data-validate="Gambar Profile is required">
+                        <span class="label-input100">Gambar Profil</span>
+                        <div class="mt-2">
+                            <img id="previewPROFILEimg" src="#" alt="Preview" class="img-fluid d-none">
+                        </div>
+                        <div class="custom-file">
+                            <input type="file" class="custom-file-input @error('gambar_profil') is-invalid @enderror"
+                                id="gambarPROFILE" name="gambar_profil" accept="image/*" required>
+                            <label class="custom-file-label" for="gambarPROFILE">Pilih gambar...</label>
+                        </div>
+                        @error('gambar_profil')
+                            <span class="text-danger">{{ $message }}</span>
+                        @enderror
+                    </div>
                     <div class="wrap-input100 validate-input m-b-23" data-validate="Gambar KTP is required">
                         <span class="label-input100">Gambar KTP</span>
                         <div class="mt-2">
@@ -152,8 +166,6 @@
                         @enderror
                     </div>
 
-
-
                     <input type="hidden" name="role_id" value="2">
                     <div class="text-right p-t-8 p-b-31">
                         <a href="{{ route('login') }}">
@@ -168,9 +180,6 @@
                             </button>
                         </div>
                     </div>
-
-
-
                 </form>
             </div>
         </div>
@@ -197,25 +206,31 @@
 
     @include('sweetalert::alert')
 
-    {{-- untuk preview gambar penghuni --}}
+    {{-- untuk preview gambar profile --}}
     <script>
         const previewImg = (target, imgPreviewPlace, labelPlace) => {
             const input = document.querySelector(target);
             if (input.files && input.files[0]) {
                 // Ganti teks label dengan nama file
-                $(labelPlace).text(input.files[0].name);
+                document.querySelector(labelPlace).textContent = input.files[0].name;
 
                 // Ubah URL gambar preview
                 const reader = new FileReader();
                 reader.readAsDataURL(input.files[0]);
-                reader.onload = (e) => $(imgPreviewPlace).attr("src", e.target.result);
+                reader.onload = (e) => document.querySelector(imgPreviewPlace).src = e.target.result;
 
                 // Tampilkan gambar preview dan label
-                $(imgPreviewPlace).removeClass("d-none");
+                document.querySelector(imgPreviewPlace).classList.remove("d-none");
             }
         }
 
+        $("#gambarPROFILE").on("change", function() {
+            previewImg("#gambarPROFILE", "#previewPROFILEimg", "label[for='gambarPROFILE']");
+        });
+
         $("#gambarKTP").on("change", function() {
-            previewImg("#gambarKTP", "#previewKTPimg", ".custom-file-label");
+            previewImg("#gambarKTP", "#previewKTPimg", "label[for='gambarKTP']");
         });
     </script>
+</body>
+</html>

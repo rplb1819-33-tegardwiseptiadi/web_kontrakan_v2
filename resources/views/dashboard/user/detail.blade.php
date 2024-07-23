@@ -11,7 +11,7 @@
             <nav>
                 <ol class="breadcrumb">
                     <li class="breadcrumb-item"><a href="{{ route('homepage') }}">Dashboard</a></li>
-                    <li class="breadcrumb-item"><a href="{{ route('dashboard.users.index') }}">Transaksi</a></li>
+                    <li class="breadcrumb-item"><a href="{{ route('dashboard.users.index') }}">User</a></li>
                     <li class="breadcrumb-item active">Detail User</li>
                 </ol>
             </nav>
@@ -52,30 +52,43 @@
                                     <input type="text" name="status_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->jenis_kelamin }}" readonly>
                                 </div>
+                                @if (auth()->user()->role->name != 'administrator')
                                 <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Status</label>
                                     <input type="text" name="umur_penghuni" class="form-control" id="inputEmail5"
                                         value="{{ $user->status_penghuni }}" readonly>
                                 </div>
+                                @endif
+ 
+                                    <div class="col-md-8 offset-md-2">
+                                        <label for="inputEmail5" class="form-label">Foto KTP</label>
+                                        <div class="col-sm-10"
+                                            style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
+                                            <img src="{{ asset('assets/upload/gambar_ktp/' . $user->gambar_ktp) }}"
+                                                class="img-thumbnail" id="previewTRANSAKSIimg">
+                                            <input type="text" name="nama_barang" class="form-control"
+                                                id="validationDefault01" value="{{ $user->gambar_ktp }}" readonly>
+                                        </div>
+                                    </div> 
 
-                                <div class="col-md-8 offset-md-2">
-                                    <label for="inputEmail5" class="form-label">Foto User</label>
-                                    <div class="col-sm-10"
-                                        style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
-                                        <img src="{{ asset('assets/upload/gambar_ktp/' . $user->gambar_ktp) }}"
-                                            class="img-thumbnail" id="previewTRANSAKSIimg">
-                                        <input type="text" name="nama_barang" class="form-control"
-                                            id="validationDefault01" value="{{ $user->gambar_ktp }}" readonly>
+                                    <div class="col-md-8 offset-md-2">
+                                        <label for="inputEmail5" class="form-label">Foto Profil</label>
+                                        <div class="col-sm-10"
+                                            style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
+                                            <img src="{{ asset('assets/upload/gambar_profil/' . $user->gambar_profil) }}"
+                                                class="img-thumbnail" id="previewTRANSAKSIimg">
+                                            <input type="text" name="nama_barang" class="form-control"
+                                                id="validationDefault01" value="{{ $user->gambar_profil }}" readonly>
+                                        </div>
                                     </div>
-                                </div>
 
 
-                                <div class="text-center">
-                                    <a href="{{ route('dashboard.users.index') }}" class="btn btn-danger">
-                                    <i class="bi bi-x-lg"></i>
-                                    Kembali
-                                    </a>
-                                </div>
+                                    <div class="text-center">
+                                        <a href="{{ route('dashboard.users.index') }}" class="btn btn-danger">
+                                            <i class="bi bi-x-lg"></i>
+                                            Kembali
+                                        </a>
+                                    </div>
                         </div>
 
                         </form><!-- End Multi Columns Form -->

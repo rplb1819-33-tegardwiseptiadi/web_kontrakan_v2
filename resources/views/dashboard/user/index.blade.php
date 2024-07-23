@@ -32,6 +32,16 @@
                                 @endif
                             </div>
                         </div>
+                        
+                        <div class=" row">
+                            <div class="col-sm-8">
+                                @if (session('Error'))
+                                    <div class="alert alert-danger" style="text-align: center; font-size:20px;">
+                                        {{ session('Error') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
 
                         <!-- Recent Sales -->
                         <div class="col-12">
@@ -97,22 +107,24 @@
                                                                     </button>
                                                                 </a>
                                                             @endcan
+                                                            
                                                             {{-- Tombol Hapus --}}
-                                                            @can('user_delete')
-                                                                <form
-                                                                    action="{{ route('dashboard.users.destroy', $pengguna->id) }}"
-                                                                    method="POST" style="display: inline;"
-                                                                    id="delete-form-{{ $pengguna->id }}">
-                                                                    @csrf
-                                                                    @method('DELETE')
-                                                                    <button type="button" class="btn btn-danger"
-                                                                        data-name="{{ $pengguna->name }}"
-                                                                        onclick="confirmDelete(this)">
-                                                                        <i class="bi bi-trash3"></i>
-                                                                        HAPUS
-                                                                    </button>
-                                                                </form>
-                                                            @endcan
+                                                            @if ($pengguna->role->name != 'administrator')
+                                                                @can('user_delete')
+                                                                    <form
+                                                                        action="{{ route('dashboard.users.destroy', $pengguna->id) }}"
+                                                                        method="POST" id="delete-form-{{ $pengguna->id }}">
+                                                                        @csrf
+                                                                        @method('DELETE')
+                                                                        <button type="button" class="btn btn-danger"
+                                                                            data-name="{{ $pengguna->name }}"
+                                                                            onclick="confirmDelete(this)">
+                                                                            <i class="bi bi-trash3"></i> HAPUS
+                                                                        </button>
+                                                                    </form>
+                                                                @endcan
+                                                            @endif
+                                                       
                                                         </div>
                                 </div>
                                 </td>
@@ -132,36 +144,8 @@
 
             </div>
         </section>
-
+    @include('includes.scriptsUser')
     </main><!-- End #main -->
 
-@endsection 
-
-@push('addon-script')
-{{-- kode sweetalert tombol delete  user --}}
-<script>
-    function confirmDelete(button) {
-        var form = button.closest('form');
-        var name = button.getAttribute('data-name');
-
-        Swal.fire({
-            title: 'Apakah Anda yakin?',
-            html: `<p style="font-size: 14px;">Anda akan menghapus data peran user <br> bernama <strong>${name}</strong>.</p>`,
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Ya, hapus!',
-            cancelButtonText: 'Batal',
-            customClass: {
-                title: 'swal-title-custom',
-                htmlContainer: 'swal-html-custom'
-            }
-        }).then((result) => {
-            if (result.isConfirmed) {
-                form.submit();
-            }
-        });
-    }
-</script>
-
+@endsection
+ 

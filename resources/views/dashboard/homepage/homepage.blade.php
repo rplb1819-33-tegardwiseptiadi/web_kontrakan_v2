@@ -30,97 +30,147 @@
                     <div class="row">
 
                         <!-- User Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card sales-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Users <span>| Total</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-people"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $totalUsers }} Users</h6>
+                        @if ($roleName == 'administrator')
+                            <div class="col-xxl-4 col-md-6">
+                                <div class="card info-card sales-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Pengguna <span>| Total</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-people"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6>{{ $totalUsers }} Pengguna</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End User Card -->
+                            </div><!-- End User Card -->
+                        @endif
 
                         <!-- Kontrakan Card -->
                         <div class="col-xxl-4 col-md-6">
                             <div class="card info-card sales-card">
                                 <div class="card-body">
-                                    <h5 class="card-title">Rents<span>| Total</span></h5>
+                                    <h5 class="card-title">Kontrakan<span>| Total</span></h5>
                                     <div class="d-flex align-items-center">
                                         <div
                                             class="card-icon rounded-circle d-flex align-items-center justify-content-center">
                                             <i class="bi bi-house"></i>
                                         </div>
                                         <div class="ps-3">
-                                            <h6>{{ $totalRents }} Rents</h6>
+                                            <h6>{{ $totalRents }} Kontrakan</h6>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div><!-- End Kontrakan Card -->
-                        <!-- Transaksi Card -->
-                        <div class="col-xxl-4 col-md-6">
-                            <div class="card info-card revenue-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Transactions <span>| Total</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6
-                                                style="color: {{ $totalTransactions < $totalInvestRent ? 'red' : 'green' }};">
-                                                Rp {{ number_format($totalTransactions, 2, ',', '.') }}
-                                            </h6>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- End Transaksi Card -->
+                     
 
                         <!-- Keluhan Card -->
-                        <div class="col-xxl-4 col-xl-6">
-                            <div class="card info-card customers-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Complaints <span>| Total</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-envelope"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>{{ $totalComplaints }} Complaints</h6>
+                        @if ($roleName == 'administrator')
+                            <div class="col-xxl-4 col-xl-12">
+                                <div class="card info-card customers-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Keluhan <span>| Total</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-envelope"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6>{{ $totalComplaints }} Keluhan</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div><!-- End Keluhan Card -->
+                        @else
+                            <div class="col-xxl-4 col-xl-6">
+                                <div class="card info-card customers-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Keluhan Saya <span>| Total</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-envelope"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6>{{ $totalComplaintsUser }} Keluhan</h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @endif
+                        <!-- End Keluhan Card -->
+
+                           <!-- Transaksi Card -->
+                        @if ($roleName == 'administrator')
+                            <div class="col-xxl-6 col-md-12">
+                                <div class="card info-card revenue-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Transaksi <span>| Total</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6
+                                                    style="color: {{ $totalTransactions < $totalInvestRent ? 'red' : 'green' }};">
+                                                    Rp {{ number_format($totalTransactions, 2, ',', '.') }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        @else
+                            <!-- Transaksi Card -->
+                            <div class="col-xxl-4 col-md-12">
+                                <div class="card info-card revenue-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Transaksi Saya <span>| Total</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6 style="color: green }};">
+                                                    Rp {{ number_format($totalTransactions, 2, ',', '.') }}
+                                                </h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div><!-- End Transaksi Card -->
+                        @endif
+                        <!-- End Transaksi Card -->
+
 
 
                         <!-- Invest Rent Card -->
-                        <div class="col-xxl-12 col-xl-12">
-                            <div class="card info-card revenue-card">
-                                <div class="card-body">
-                                    <h5 class="card-title">Investation Rents <span>| Total</span></h5>
-                                    <div class="d-flex align-items-center">
-                                        <div
-                                            class="card-icon rounded-circle d-flex align-items-center justify-content-center">
-                                            <i class="bi bi-currency-dollar"></i>
-                                        </div>
-                                        <div class="ps-3">
-                                            <h6>Rp {{ number_format($totalInvestRent, 2, ',', '.') }}</h6>
+                        @if ($roleName == 'administrator')
+                            <div class="col-xxl-6 col-xl-12">
+                                <div class="card info-card revenue-card">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Investasi Kontrakan <span>| Total</span></h5>
+                                        <div class="d-flex align-items-center">
+                                            <div
+                                                class="card-icon rounded-circle d-flex align-items-center justify-content-center">
+                                                <i class="bi bi-currency-dollar"></i>
+                                            </div>
+                                            <div class="ps-3">
+                                                <h6>Rp {{ number_format($totalInvestRent, 2, ',', '.') }}</h6>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-                            </div>
-                        </div><!-- End Invest Rent Card -->
+                            </div><!-- End Invest Rent Card -->
+                        @endif
 
 
                         <!-- Recent Sales -->
@@ -151,9 +201,6 @@
                                                         @if ($keluhan->status_keluhan == 'Sudah Divalidasi')
                                                             <button type="button"
                                                                 class="btn btn-success">{{ $keluhan->status_keluhan }}</button>
-                                                        @elseif ($keluhan->status_keluhan == 'Belum Divalidasi')
-                                                            <button type="button"
-                                                                class="btn btn-danger">{{ $keluhan->status_keluhan }}</button>
                                                         @endif
                                                     </td>
                                                     <!-- <td><span class="badge bg-success">Approved</span></td> -->
@@ -172,48 +219,55 @@
                                                             @endcan
 
                                                         </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+
                                 </div>
-                                </td>
-                                </tr>
-                            @empty
-                                @endforelse
-                                </tbody>
-                                </table>
 
                             </div>
-
-                        </div>
-                    </div><!-- End Recent Sales -->
+                        </div><!-- End Recent Sales -->
 
 
-                    <div class="row">
-                        <!-- Transaksi Chart Card -->
-                        <div class="col-12 col-lg-12 col-xxl-4 mb-4"> <!-- Tambahkan kelas mb-4 untuk margin bottom -->
-                            <div class="p-6 bg-white rounded shadow">
-                                <div class="card-body">
-                                    {!! $transaksiChart->container() !!}
+                        <div class="row">
+                            <!-- Transaksi Chart Card -->
+                            <div class="col-12 col-lg-12 col-xxl-12 mb-4">
+                                <!-- Tambahkan kelas mb-4 untuk margin bottom -->
+                                <div class="p-6 bg-white rounded shadow">
+                                    <div class="card-body">
+                                        {!! $transaksiChart->container() !!}
+                                    </div>
                                 </div>
                             </div>
-                        </div>
-                        <!-- End Transaksi Chart Card -->
+                            <!-- End Transaksi Chart Card -->
 
-                        <!-- Keluhan Chart Card -->
-                        <div class="col-12 col-lg-12 col-xxl-4 mb-4"> <!-- Tambahkan kelas mb-4 untuk margin bottom -->
-                            <div class="p-6 bg-white rounded shadow">
-                                <div class="card-body">
-                                    {!! $keluhanChart->container() !!}
+                            <!-- Keluhan Chart Card -->
+                            @if ($roleName == 'administrator')
+                                <div class="col-12 col-lg-12 col-xxl-12 mb-4">
+                                    <!-- Tambahkan kelas mb-4 untuk margin bottom -->
+                                    <div class="p-6 bg-white rounded shadow">
+                                        <div class="card-body">
+                                            {!! $keluhanChart->container() !!}
+                                        </div>
+                                    </div>
                                 </div>
-                            </div>
+                            @else
+                                <div class="col-12 col-lg-12 col-xxl-12 mb-4">
+                                    <!-- Tambahkan kelas mb-4 untuk margin bottom -->
+                                    <div class="p-6 bg-white rounded shadow">
+                                        <div class="card-body">
+                                            {!! $keluhanChart->container() !!}
+                                        </div>
+                                    </div>
+                                </div>
+                            @endif
+                            <!-- End Keluhan Chart Card -->
                         </div>
-                        <!-- End Keluhan Chart Card -->
                     </div>
-
-
-
-
-
-                </div>
-            </div><!-- End Left side columns -->
+                </div><!-- End Left side columns -->
 
 
             </div>

@@ -35,6 +35,8 @@ class UserStoreRequest extends FormRequest
                 Rule::in(["Pria", "Perempuan"])
             ], 
             'role_id' => 'required|exists:roles,id',
+            'gambar_ktp' => 'required|',
+            'gambar_profil' => 'required|',
         ];
     }
     public function messages(): array
@@ -54,6 +56,8 @@ class UserStoreRequest extends FormRequest
             'password.min' => 'Password tidak boleh kurang dari :min karakter.',
             'jenis_kelamin.required' => 'Jenis Kelamin tidak boleh kosong.',
             'jenis_kelamin.in' => 'Jenis Kelamin tidak terdaftar.', 
+            'gambar_profil.required' => 'Gambar Profil tidak boleh kosong.',
+            'gambar_ktp.required' => 'Gambar KTP tidak boleh kosong.',
         ]; 
     }
     

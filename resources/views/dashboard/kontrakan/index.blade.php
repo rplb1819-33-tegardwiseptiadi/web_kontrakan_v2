@@ -23,11 +23,21 @@
                 <div class="col-lg-12">
                     <div class="row">
 
-                        <div class=" row">
+                      <div class=" row">
                             <div class="col-sm-8">
                                 @if (session('status'))
                                     <div class="alert alert-success" style="text-align: center; font-size:20px;">
                                         {{ session('status') }}
+                                    </div>
+                                @endif
+                            </div>
+                        </div>
+                        
+                        <div class=" row">
+                            <div class="col-sm-8">
+                                @if (session('Error'))
+                                    <div class="alert alert-danger" style="text-align: center; font-size:20px;">
+                                        {{ session('Error') }}
                                     </div>
                                 @endif
                             </div>
@@ -107,8 +117,7 @@
                                                             @can('kontrakan_delete')
                                                                 <form
                                                                     action="{{ route('dashboard.rents.destroy', $kontrakan->id) }}"
-                                                                    method="POST" style="display: inline;"
-                                                                    id="delete-form-{{ $kontrakan->id }}">
+                                                                    method="POST" id="delete-form-{{ $kontrakan->id }}">
                                                                     @csrf
                                                                     @method('DELETE')
                                                                     <button type="button" class="btn btn-danger"

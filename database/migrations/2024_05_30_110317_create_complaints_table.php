@@ -15,6 +15,7 @@ return new class extends Migration
             $table->foreignIdFor(User::class); 
             $table->foreignIdFor(Rent::class); 
             $table->text('keluhan');
+            $table->date('tgl_keluhan');
             $table->string('gambar_keluhan')->nullable();
             $table->enum('status_keluhan', ['Sudah Divalidasi', 'Belum Divalidasi'])->default('Belum Divalidasi');
             $table->timestamps();

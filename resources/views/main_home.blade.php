@@ -177,14 +177,17 @@
                             <div class="member-info">
                                 <h4>Supadi</h4>
                                 <span>Pemilik Kontrakan</span>
-                                <p>Saya berkomitmen untuk menyediakan tempat tinggal yang nyaman dan aman bagi setiap
-                                    penghuni.</p>
-                                <p>Dengan mendengarkan kebutuhan Anda dan terus meningkatkan layanan, kami memastikan
-                                    Anda merasa seperti di rumah sendiri.</p>
+                                <p style="text-align: justify;">
+                                    Sebagai pemilik kontrakan berpengalaman,
+                                    <br>
+                                    Prioritas saya adalah kenyamanan dan kepuasan Anda, memastikan lingkungan yang aman
+                                    dan nyaman untuk Anda tinggali.
+                                </p>
                                 <div class="social">
-                                    <a href="https://www.instagram.com/tegar_dwi_04/"><i
-                                            class="ri-instagram-fill"></i></a>
+                                    <a href="https://wa.me/6281317453587" target="_blank"><i
+                                            class="ri-whatsapp-fill"></i></a>
                                 </div>
+
                             </div>
                         </div>
                     </div>
@@ -201,7 +204,9 @@
                                 <p>Dengan memperhatikan setiap detail dan mendengarkan masukan Anda, saya berusaha untuk
                                     terus meningkatkan fitur dan kemudahan penggunaan situs ini.</p>
                                 <div class="social">
-                                    <a href="https://www.instagram.com/tegar_dwi_04/"><i
+                                    <a href="https://wa.me/6282298776320" target="_blank"><i
+                                            class="ri-whatsapp-fill"></i></a>
+                                    <a href="https://www.instagram.com/tegar_dwi_04/" target="_blank"><i
                                             class="ri-instagram-fill"></i></a>
                                 </div>
                             </div>
@@ -393,8 +398,16 @@
                             <div class="phone">
                                 <i class="bi bi-phone"></i>
                                 <h4>Call:</h4>
-                                <p>+62 813-1745-3587 (Supadi)</p>
-                                <p>+62 822-9877-6320 (Tegar Dwi Septiadi)</p>
+                                <p>
+                                    <a href="https://wa.me/6281317453587" target="_blank"> 
+                                        +62 813-1745-3587 (Supadi)
+                                    </a>
+                                </p>
+                                <p>
+                                    <a href="https://wa.me/6282298776320" target="_blank"> 
+                                +62 822-9877-6320 (Tegar Dwi Septiadi)
+                                    </a>
+                                </p>
                             </div>
                         </div>
                     </div>
@@ -403,9 +416,10 @@
 
                     <div class="col-lg-7 mt-5 mt-lg-0 d-flex align-items-stretch">
                         <iframe
-                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3906.966620357398!2d106.99057576638707!3d-6.245458740548811!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698c37f29327b9%3A0xc9c318795dbb5a8!2sBEKASI%20CYBER%20PARK%20MALL!5e0!3m2!1sen!2sid!4v1684936096119!5m2!1sen!2sid"
+                            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d315.3550252851231!2d106.968500444427!3d-6.212112440805198!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e698b684adaed8f%3A0x6e16d124e18d609!2sSupadi%20house!5e0!3m2!1sen!2sid!4v1721314310709!5m2!1sen!2sid"
                             width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
                             referrerpolicy="no-referrer-when-downgrade"></iframe>
+
                     </div>
 
 

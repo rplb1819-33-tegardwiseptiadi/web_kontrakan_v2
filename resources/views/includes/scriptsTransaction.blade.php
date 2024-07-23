@@ -68,7 +68,7 @@
 </script>
 
 <script>
-    document.addEventListener('DOMContentLoaded', function() {
+ document.addEventListener('DOMContentLoaded', function() {
         let form = document.getElementById('formTambahTransaksi');
 
         form.addEventListener('submit', function(event) {
@@ -77,6 +77,7 @@
             // Ambil nilai dari input
             let totalHarga = parseFloat(document.getElementById('total_harga').value);
             let bayar = parseFloat(document.getElementById('total_bayar').value);
+            let namaPenghuni = document.getElementById('selectNamaPenghuni').options[document.getElementById('selectNamaPenghuni').selectedIndex].text;
 
             // Cek apakah jumlah bayar kurang dari total harga
             if (bayar < totalHarga) {
@@ -95,7 +96,7 @@
                 // Jika jumlah bayar mencukupi, konfirmasi penambahan data
                 Swal.fire({
                     title: 'Apakah Anda yakin?',
-                    html: '<p style="font-size: 14px;">Anda akan menambahkan data transaksi baru.</p>',
+                    html: '<p style="font-size: 14px;">Anda akan menambahkan transaksi atas nama <strong>' + namaPenghuni + '</strong>.</p>',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonColor: '#3085d6',
@@ -114,6 +115,7 @@
             }
         });
     });
+
 </script>
 
 

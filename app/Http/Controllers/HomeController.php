@@ -19,22 +19,60 @@ class HomeController extends Controller
         $this->middleware('auth');
     }
 
-    public function index(TransaksiBulananChart $transaksiChart, KeluhanBulananChart $keluhanChart) // Add KeluhanBulananChart as parameter
+    public function index(TransaksiBulananChart $transaksiChart, KeluhanBulananChart $keluhanChart)
     {
-        $user = auth()->user();
+        // Ambil data pengguna yang sedang login
+        $user = Auth::user();
 
         $data['transaksiChart'] = $transaksiChart->build(); // Build the transaksi chart
         $data['keluhanChart'] = $keluhanChart->build(); // Build the keluhan chart
 
-        // Fetch all necessary data
-        $totalUsers = User::count();
-        $totalRents = Rent::count();
-        $totalInvestRent = Rent::sum('harga_kontrakan'); // Assuming there's an 'harga kontrakan' field
-        $totalTransactions = Transaction::sum('total_harga'); // Assuming there's an 'total selurh bayar' field
-        $totalComplaints = Complaint::count();
+        // Fetch role data for the logged-in user
+        $roleName = $user->role?->name; // Ambil nama role dari pengguna yang sedang login
 
-        $complaints = Complaint::all();
+        if ($roleName == 'administrator') { // Periksa jika role adalah 'administrator'
+            $totalUsers = User::count();
+            $totalRents = Rent::count();
+            $totalInvestRent = Rent::sum('harga_kontrakan'); // Asumsikan ada kolom 'harga_kontrakan'
+            $totalTransactions = Transaction::sum('total_harga'); // Asumsikan ada kolom 'total_harga'
+            $totalComplaints = Complaint::count();
 
-        return view('dashboard.homepage.homepage', $data, compact('complaints', 'totalUsers', 'totalRents', 'totalTransactions', 'totalInvestRent', 'totalComplaints'));
+            $complaints = Complaint::where('status_keluhan', 'Sudah Divalidasi')->get();
+
+            $data = array_merge($data, [
+                'totalUsers' => $totalUsers,
+                'totalRents' => $totalRents,
+                'totalInvestRent' => $totalInvestRent,
+                'totalTransactions' => $totalTransactions,
+                'totalComplaints' => $totalComplaints,
+                'complaints' => $complaints,
+                'roleName' => $roleName, // Pastikan roleName dikirim ke view
+            ]);
+        } else {
+            // Untuk non-administrator, ambil data spesifik untuk pengguna
+            $totalRents = Rent::count();
+
+            $totalTransactions = Transaction::where('user_id', $user->id)->sum('total_harga');
+
+            // Hitung total complaints untuk pengguna yang sedang login
+            $totalComplaintsUser = Complaint::where('user_id', $user->id)->count();
+
+            $complaints = Complaint::where('status_keluhan', 'Sudah Divalidasi')->get();
+
+
+            // Tampilkan data untuk debug
+            // dd($user->id, $totalRents, $totalTransactions, $totalComplaintsUser, $complaints);
+
+
+            $data = array_merge($data, [
+                'totalRents' => $totalRents,
+                'totalTransactions' => $totalTransactions,
+                'totalComplaintsUser' => $totalComplaintsUser,
+                'complaints' => $complaints,
+                'roleName' => $roleName, // Pastikan roleName dikirim ke view
+            ]);
+        }
+
+        return view('dashboard.homepage.homepage', $data);
     }
 }

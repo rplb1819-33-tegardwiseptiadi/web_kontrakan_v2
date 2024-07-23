@@ -4,6 +4,7 @@ namespace App\Charts;
 
 use ArielMejiaDev\LarapexCharts\LarapexChart;
 use App\Models\Complaint; // Menambahkan impor class Complaint
+use Illuminate\Support\Facades\Auth; // Impor untuk mendapatkan data pengguna yang sedang login
 
 class KeluhanBulananChart
 {
@@ -20,11 +21,20 @@ class KeluhanBulananChart
         $bulan = 12; // Loop until December
         $dataTotalKeluhan = [];
         $dataBulan = []; // Array to store month names
+        
+        $user = Auth::user(); // Dapatkan data pengguna yang sedang login
+        $isAdmin = $user->role->name === 'administrator'; // Periksa apakah pengguna adalah administrator
 
         for ($i = 1; $i <= $bulan; $i++) {
-            $totalKeluhan = Complaint::whereYear('created_at', $tahun)
-                ->whereMonth('created_at', $i)
-                ->count(); // Count total complaints for each month
+            $query = Complaint::whereYear('created_at', $tahun)
+                              ->whereMonth('created_at', $i);
+            
+            if (!$isAdmin) {
+                // Jika pengguna bukan administrator, tambahkan filter berdasarkan user_id
+                $query->where('user_id', $user->id);
+            }
+            
+            $totalKeluhan = $query->count(); // Hitung total keluhan untuk setiap bulan
             $dataBulan[] = date('F', mktime(0, 0, 0, $i, 1)); // Convert month number to month name
             $dataTotalKeluhan[] = $totalKeluhan;
         }

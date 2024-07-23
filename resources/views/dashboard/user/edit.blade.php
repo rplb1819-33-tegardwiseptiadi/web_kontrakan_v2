@@ -21,6 +21,7 @@
                         <div class="card-body">
                             <h5 class="card-title" style="text-align: center;">EDIT DATA USER</h5>
 
+                             @if ($user->role_id == 1)
                             <!-- Multi Columns Form -->
                             <form id="formEditUser" class="row g-3"
                                 action="{{ route('dashboard.users.update', $user->id) }}" method="POST"
@@ -127,13 +128,14 @@
                                         </div>
                                     @endif
                                 </div>
+                                
                                 {{-- gambar ktp --}}
                                 <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto KTP</label>
                                     <div class="col-sm-10"
-                                        style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
+                                        >
                                         <img src="{{ asset('assets/upload/gambar_ktp/' . $user->gambar_ktp) }}"
-                                            class="img-thumbnail" id="previewKTPimg">
+                                            class="img-thumbnail" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" id="previewKTPimg">
                                     </div>
                                     <div class="col-sm-12">
                                         <div class="custom-file">
@@ -141,6 +143,187 @@
                                                 class="custom-file-input @error('gambar_ktp') is-invalid @enderror"
                                                 id="gambarKTP">
                                             @error('gambar_ktp')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                {{-- gambar Profil --}}
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputEmail5" class="form-label">Foto Profil</label>
+                                    <div class="col-sm-10"
+                                        >
+                                        <img src="{{ asset('assets/upload/gambar_profil/' . $user->gambar_profil) }}"
+                                            class="img-thumbnail" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" id="previewPROFILEimg">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="custom-file">
+                                            <input type="file" name="gambar_profil"
+                                                class="custom-file-input @error('gambar_profil') is-invalid @enderror"
+                                                id="gambarPROFILE">
+                                            @error('gambar_profil')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                                <div class="text-center">
+                                    <button type="submit" class="btn btn-primary">
+                                        <i class="bi bi-save"></i>
+                                        Edit Data
+                                    </button>
+                                    <a href="{{ route('dashboard.users.index') }}" class="btn btn-danger">
+                                        <i class="bi bi-x-lg"></i>
+                                        Kembali
+                                    </a>
+                                </div>
+                            </form><!-- End Multi Columns Form -->
+                           @endif
+                        
+                          @if ($user->role_id == 2)
+                           <form id="formEditUser" class="row g-3"
+                                action="{{ route('dashboard.users.update', $user->id) }}" method="POST"
+                                enctype="multipart/form-data">
+                                @csrf
+                                @method('PUT')
+
+                                <!-- Name -->
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputName" class="form-label">Nama</label>
+                                    <input type="text" name="name" class="form-control" id="inputName"
+                                        value="{{ old('name', $user->name) }}">
+                                    @if ($errors->has('name'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                            {{ $errors->first('name') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Email -->
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputEmail" class="form-label">Email</label>
+                                    <input type="email" name="email" class="form-control" id="inputEmail"
+                                        value="{{ old('email', $user->email) }}">
+                                    @if ($errors->has('email'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                            {{ $errors->first('email') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Password -->
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputPassword" class="form-label">Password</label>
+                                    <input type="password" name="password" class="form-control" id="inputPassword"
+                                        placeholder="Leave blank to keep current password">
+                                    @if ($errors->has('password'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                            {{ $errors->first('password') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Umur -->
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputUmur" class="form-label">Umur</label>
+                                    <input type="number" name="umur" class="form-control" id="inputUmur"
+                                        value="{{ old('umur', $user->umur) }}">
+                                    @if ($errors->has('umur'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                            {{ $errors->first('umur') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Jenis Kelamin -->
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputGender" class="form-label">Jenis Kelamin</label>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="jenis_kelamin" value="Pria"
+                                            {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Pria' ? 'checked' : '' }}
+                                            id="genderPria">
+                                        <label class="form-check-label" for="genderPria">Pria</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input type="radio" class="form-check-input" name="jenis_kelamin" value="Wanita"
+                                            {{ old('jenis_kelamin', $user->jenis_kelamin) == 'Wanita' ? 'checked' : '' }}
+                                            id="genderWanita">
+                                        <label class="form-check-label" for="genderWanita">Wanita</label>
+                                    </div>
+                                    @if ($errors->has('jenis_kelamin'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                            {{ $errors->first('jenis_kelamin') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+
+                                <!-- Status Penghuni -->
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputStatusPenghuni" class="form-label">Status Penghuni</label>
+                                    <select name="status_penghuni" id="inputStatusPenghuni" class="form-select">
+                                        <option value="Sudah Menikah"
+                                            {{ old('status_penghuni', $user->status_penghuni) == 'Sudah Menikah' ? 'selected' : '' }}>
+                                            Sudah Menikah</option>
+                                        <option value="Belum Menikah"
+                                            {{ old('status_penghuni', $user->status_penghuni) == 'Belum Menikah' ? 'selected' : '' }}>
+                                            Belum Menikah</option>
+                                    </select>
+                                    @if ($errors->has('status_penghuni'))
+                                        <div class="alert alert-danger alert-dismissible fade show mt-2" role="alert">
+                                            {{ $errors->first('status_penghuni') }}
+                                            <button type="button" class="btn-close" data-bs-dismiss="alert"
+                                                aria-label="Close"></button>
+                                        </div>
+                                    @endif
+                                </div>
+                                
+                                {{-- gambar ktp --}}
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputEmail5" class="form-label">Gambar KTP</label>
+                                    <div class="col-sm-10"
+                                        >
+                                        <img src="{{ asset('assets/upload/gambar_ktp/' . $user->gambar_ktp) }}"
+                                            class="img-thumbnail" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" id="previewKTPimg">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="custom-file">
+                                            <input type="file" name="gambar_ktp"
+                                                class="custom-file-input @error('gambar_ktp') is-invalid @enderror"
+                                                id="gambarKTP">
+                                            @error('gambar_ktp')
+                                                <div class="invalid-feedback">{{ $message }}</div>
+                                            @enderror
+                                        </div>
+                                    </div>
+                                </div>
+                               
+                                {{-- gambar Profil --}}
+                                <div class="col-md-8 offset-md-2">
+                                    <label for="inputEmail5" class="form-label">Gambar Profil</label>
+                                    <div class="col-sm-10"
+                                        >
+                                        <img src="{{ asset('assets/upload/gambar_profil/' . $user->gambar_profil) }}"
+                                            class="img-thumbnail" style="max-width: 300px; max-height: 300px; width: auto; height: auto;" id="previewPROFILEimg">
+                                    </div>
+                                    <div class="col-sm-12">
+                                        <div class="custom-file">
+                                            <input type="file" name="gambar_profil"
+                                                class="custom-file-input @error('gambar_profil') is-invalid @enderror"
+                                                id="gambarPROFILE">
+                                            @error('gambar_profil')
                                                 <div class="invalid-feedback">{{ $message }}</div>
                                             @enderror
                                         </div>
@@ -172,7 +355,7 @@
                                 <div class="text-center">
                                     <button type="submit" class="btn btn-primary">
                                         <i class="bi bi-save"></i>
-                                        Update Data
+                                        Edit Data
                                     </button>
                                     <a href="{{ route('dashboard.users.index') }}" class="btn btn-danger">
                                         <i class="bi bi-x-lg"></i>
@@ -180,6 +363,8 @@
                                     </a>
                                 </div>
                             </form><!-- End Multi Columns Form -->
+                            @endif
+                        
                         </div>
                     </div>
                 </div>

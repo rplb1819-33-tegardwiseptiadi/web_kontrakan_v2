@@ -9,6 +9,7 @@ use RealRashid\SweetAlert\Facades\Alert;
 // use App\Models\user;
 use App\Models\User;
 use App\Models\Rent;
+use App\Models\Role;
 use App\Models\Transaction;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
@@ -60,29 +61,31 @@ class TransactionController extends Controller
             })->get();
         }
 
-        return view('dashboard.transaksi.index', compact('transactions'));
+        return view('dashboard.transaksi.index', compact('transactions', 'user'));
     }
 
     /**
      * Show the form for creating a new resource.
      */
-    public function create(Request $request, User $user, Rent $rent)
+    public function create(Request $request)
     {
+        $user = auth()->user();
+        $users = User::with('role')->get(); // Mengambil data pengguna bersama dengan data role
+
         if ($request->ajax()) {
             $rent = Rent::find($request->id);
             return response()->json($rent);
         }
 
-        $rents = Rent::whereIn('status_kontrakan', ['Kosong', 'Booking'])->get();
-        $users = User::all();
+        $rents = Rent::where('status_kontrakan', 'Kosong')->get();
         $allFull = $rents->every(function ($rent) {
-            return $rent->status_kontrakan == 'Penuh';
+            return in_array($rent->status_kontrakan, ['Penuh', 'Booking']);
         });
 
-        return view('dashboard.transaksi.create', compact('rents', 'users', 'allFull'));
+        return view('dashboard.transaksi.create', compact('rents', 'users', 'allFull', 'user'));
     }
 
-
+  
     /**
      * Store a newly created resource in storage.
      */
@@ -90,27 +93,27 @@ class TransactionController extends Controller
     {
         // Cetak data yang terkirim ke konsol
         // dd($request->all());
-    
+
         if ($request->hasFile("gambar_transaksi")) {
             $gambarTransaksi = $request->file("gambar_transaksi")->getClientOriginalName();
             $request->gambar_transaksi->move(public_path('/assets/upload/gambar_transaksi/'), $gambarTransaksi);
         }
-    
+
         $data = $request->except("gambar_transaksi");
         $data["gambar_transaksi"] = $gambarTransaksi;
         $transaction = Transaction::create($data);
-    
+
         $rent = Rent::find($request->rent_id);
-    
+
         // Periksa role_id dan status_transaksi
         if (auth()->user()->role_id == 1 && $transaction->status_transaksi == 'Sudah Divalidasi') {
             $rent->update(['status_kontrakan' => 'Penuh']);
         } elseif ((auth()->user()->role_id == 1 || auth()->user()->role_id == 2) && $transaction->status_transaksi == 'Belum Divalidasi') {
             $rent->update(['status_kontrakan' => 'Booking']);
         }
-    
+
         $rent->save();
-    
+
         ActivityLog::create([
             'user_id' => auth()->user()->id,
             'tabel_referensi' => 'transactions',
@@ -118,11 +121,11 @@ class TransactionController extends Controller
             'deskripsi' => 'Tambah Data Transaksi',
             'created_at' => now(),
         ]);
-    
+
         Alert::success('Tambah Data Transaksi Berhasil', 'Data Transaksi Sudah Di Tambah !!!');
         return redirect()->route('dashboard.transactions.index')->with('status', 'Data Transaksi Berhasil Di Tambah!');
     }
-    
+
 
 
     /**
@@ -130,6 +133,7 @@ class TransactionController extends Controller
      */
     public function show(Request $request, Transaction $transaction, Rent $rent, User $user)
     {
+        $user = auth()->user();
         return view('dashboard.transaksi.detail', compact('request', 'transaction', 'rent', 'user'));
     }
 
@@ -138,13 +142,15 @@ class TransactionController extends Controller
      */
     public function edit(Request $request, Transaction $transaction, Rent $rent, User $user)
     {
+        $user = auth()->user();
         if ($request->ajax()) {
             $rent = Rent::find($request->id);
             return response()->json($rent);
         }
 
         $rents = Rent::whereIn('status_kontrakan', ['Kosong'])->get();
-        $users = User::all();
+        $users = User::with('role')->get(); // Mengambil data pengguna bersama dengan data role
+
         $allFull = $rents->every(function ($rent) {
             return $rent->status_kontrakan == 'Penuh';
         });
@@ -152,7 +158,7 @@ class TransactionController extends Controller
         $rents = Rent::all();
         $users = User::all();
 
-        return view('dashboard.transaksi.edit', compact('transaction', 'rents', 'users', 'allFull'));
+        return view('dashboard.transaksi.edit', compact('transaction', 'rents', 'users', 'allFull', 'user'));
     }
 
     /**
@@ -160,7 +166,7 @@ class TransactionController extends Controller
      */
     public function update(TransactionUpdateRequest $request, Transaction $transaction)
     {
-        
+
         // Upload File
         if ($request->hasFile("gambar_transaksi")) {
             $gambarTransaksi = $request->file("gambar_transaksi");

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Validation\Rule;
 use Alert;
 use Carbon\Carbon;
+use App\Models\User;
 use App\Models\Transaction;
 use App\Models\ActivityLog;
 use Illuminate\Http\Request;
@@ -17,6 +18,7 @@ class TransactionReportController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
         $transactions = Transaction::all();
 
         ActivityLog::create([
@@ -27,7 +29,7 @@ class TransactionReportController extends Controller
             'created_at' => now(),
         ]);
 
-        return view('dashboard.laporan_transaksi.index', compact('transactions'));
+        return view('dashboard.laporan_transaksi.index', compact('transactions', 'user'));
     }
 
     /**
@@ -36,6 +38,7 @@ class TransactionReportController extends Controller
 
     public function show($id)
     {
+        
         // Implementasi untuk menampilkan detail transaction report berdasarkan ID
         ActivityLog::create([
             'user_id' => auth()->user()->id,
@@ -61,6 +64,7 @@ class TransactionReportController extends Controller
     
     public function cetakLaporanPertanggal(Request $request)
     {
+        $user = auth()->user();
         $request->validate([
             'tgl_awal' => 'required|date',
             'tgl_akhir' => 'required|date',
@@ -87,7 +91,7 @@ class TransactionReportController extends Controller
             'deskripsi' => 'Print Laporan Transaksi',
             'created_at' => now(),
         ]);
-        $pdf = PDF::loadView('dashboard.laporan_transaksi.print-laporan-pertanggal', compact('cetakPertanggal'))->setPaper('a4', 'landscape');
+        $pdf = PDF::loadView('dashboard.laporan_transaksi.print-laporan-pertanggal', compact('cetakPertanggal', 'user'))->setPaper('a4', 'landscape');
         
         return $pdf->stream("laporan_transaksi_{$tglawal}_sampai_{$tglakhir}.pdf");
     }

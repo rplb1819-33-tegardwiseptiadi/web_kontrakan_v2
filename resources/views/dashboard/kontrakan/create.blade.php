@@ -165,8 +165,8 @@
                                 <div class="col-md-8 offset-md-2">
                                     <label for="inputEmail5" class="form-label">Foto Kontrakan</label>
                                     <div class="col-sm-10"
-                                        style="max-width: 400px; max-height: 600px; width: auto; height: auto;">
-                                        <img src="" class="img-thumbnail d-none" id="previewKONTRAKANimg">
+                                        >
+                                        <img src="" class="img-thumbnail d-none" style="max-width: 300px; max-height: 300px;" id="previewKONTRAKANimg">
                                     </div>
 
                                     <div class="col-sm-12">

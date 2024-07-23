@@ -10,6 +10,7 @@ class Complaint extends Model
         'user_id',
         'rent_id',
         'keluhan',
+        'tgl_keluhan',
         'gambar_keluhan',
         'status_keluhan',
     ];

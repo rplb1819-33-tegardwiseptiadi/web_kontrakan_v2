@@ -29,24 +29,29 @@ class ComplaintController extends Controller
             })->get();
         }
 
-        return view('dashboard.keluhan.index', compact('complaints'));
+        return view('dashboard.keluhan.index', compact('user', 'complaints'));
     }
 
     public function create(Request $request, User $user, Rent $rent)
     {
+        $user = auth()->user();    
         $rents = Rent::all();
-        $users = User::all();
-
-        return view('dashboard.keluhan.create', compact('users', 'rents'));
+        $users = User::with('role')->get(); // Mengambil data pengguna bersama dengan data role
+    
+        
+        return view('dashboard.keluhan.create', compact('user', 'users', 'rents'));
     }
 
     public function store(ComplaintStoreRequest $request)
     {
+
+        $user = auth()->user();    
         // Validasi data
         $request->validate([
             'user_id' => 'required|exists:users,id',
             'rent_id' => 'required|exists:rents,id',
             'keluhan' => 'required|string',
+            'tgl_keluhan' => 'required',
             'gambar_keluhan' => 'nullable|image|max:2048',
         ]);
 
@@ -64,6 +69,7 @@ class ComplaintController extends Controller
             'user_id' => $request->user_id,
             'rent_id' => $request->rent_id,
             'keluhan' => $request->keluhan,
+            'tgl_keluhan' => $request->tgl_keluhan,
             'status_keluhan' => $request->status_keluhan,
             'gambar_keluhan' => $gambarKeluhan,
         ]);
@@ -86,20 +92,23 @@ class ComplaintController extends Controller
 
     public function show(Request $request, Rent $rent, User $user, Complaint $complaint)
     {
+        $user = auth()->user();
         return view('dashboard.keluhan.detail', compact('request','complaint', 'user', 'rent'));
     }
  
     public function detail(Request $request, Rent $rent, User $user, Complaint $complaint)
     {
+        $user = auth()->user();
         return view('dashboard.homepage.detail_keluhan', compact('request','complaint', 'user', 'rent'));
     }
 
     public function edit(Request $request, Complaint $complaint, User $user, Rent $rent)
     {
+        $user = auth()->user();
         $rents = Rent::all();
         $users = User::all();
 
-        return view('dashboard.keluhan.edit', compact('complaint', 'users', 'rents'));
+        return view('dashboard.keluhan.edit', compact('user', 'complaint', 'users', 'rents'));
     }
 
     public function update(ComplaintUpdateRequest $request, Complaint $complaint)
@@ -107,6 +116,7 @@ class ComplaintController extends Controller
         $request->validate([
             'rent_id' => 'required|exists:rents,id',
             'keluhan' => 'required|string',
+            'tgl_keluhan' => 'required',
             'gambar_keluhan' => 'nullable|image|max:2048',
             'status_keluhan' => 'required|in:Sudah Divalidasi,Belum Divalidasi',
         ]);
@@ -122,6 +132,7 @@ class ComplaintController extends Controller
         $complaint->update([
             'rent_id' => $request->rent_id,
             'keluhan' => $request->keluhan,
+            'tgl_keluhan' => $request->tgl_keluhan,
             'gambar_keluhan' => $gambar_keluhan,
             'status_keluhan' => $request->status_keluhan,
         ]);

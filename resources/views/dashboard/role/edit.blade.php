@@ -25,12 +25,12 @@
                                 method="POST">
                                 @csrf
                                 @method('PUT')
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2 ">
                                     <label for="validationDefault01" class="form-label">PERAN :</label>
                                     <input type="text" name="name" class="form-control" id="validationDefault01"
                                         value="{{ old('name', $role->name) }}" placeholder="Isi Nama Peran">
                                 </div>
-                                <div class="col-lg-8">
+                                <div class="col-lg-8 offset-md-2 ">
                                     @if ($errors->has('name'))
                                         <div class="alert alert-danger alert-dismissible fade show" role="alert">
                                             {{ $errors->first('name') }}
@@ -40,7 +40,7 @@
                                     @endif
                                 </div>
 
-                                <div class="col-md-8">
+                                <div class="col-md-8 offset-md-2 ">
                                     <label for="inputState" class="form-label">HAK AKSES :</label>
                                     <select name="permissions[]" id="multipleSelect" multiple
                                         placeholder="Select Permissions" data-search="false"
@@ -106,3 +106,7 @@
         });
     </script>
 @endpush
+
+
+{{-- kode alert user --}}
+@include('includes.scriptsRoles')

@@ -1,8 +1,70 @@
+{{-- kode sweetalert tombol delete  user --}}
+    <script>
+        function confirmDelete(button) {
+            var form = button.closest('form');
+            var name = button.getAttribute('data-name');
+
+            Swal.fire({
+                title: 'Apakah Anda yakin?',
+                html: `<p style="font-size: 14px;">Anda akan menghapus data peran user <br> bernama <strong>${name}</strong>.</p>`,
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Ya, hapus!',
+                cancelButtonText: 'Batal',
+                customClass: {
+                    title: 'swal-title-custom',
+                    htmlContainer: 'swal-html-custom'
+                }
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    form.submit();
+                }
+            });
+        }
+    </script>
 
 
 {{-- Konfirmasi tambah data --}}
 <script>
     document.addEventListener('DOMContentLoaded', function() {
+
+        // Preview image for KTP
+        let gambarKTPInput = document.getElementById('gambarKTP');
+        let previewKTPimg = document.getElementById('previewKTPimg');
+
+        if (gambarKTPInput) {
+            gambarKTPInput.addEventListener('change', function() {
+                let file = gambarKTPInput.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewKTPimg.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+        // Preview image for Profile
+        let gambarPROFILEInput = document.getElementById('gambarPROFILE');
+        let previewPROFILEimg = document.getElementById('previewPROFILEimg');
+
+        if (gambarPROFILEInput) {
+            gambarPROFILEInput.addEventListener('change', function() {
+                let file = gambarPROFILEInput.files[0];
+                if (file) {
+                    let reader = new FileReader();
+                    reader.onload = function(e) {
+                        previewPROFILEimg.src = e.target.result;
+                    }
+                    reader.readAsDataURL(file);
+                }
+            });
+        }
+
+
         let formTambahUser = document.getElementById('formTambahUser');
 
         formTambahUser.addEventListener('submit', function(event) {
@@ -14,11 +76,13 @@
             let jenis_kelamin = formTambahUser.querySelector('input[name="jenis_kelamin"]:checked');
             let status_penghuni = formTambahUser.querySelector('select[name="status_penghuni"]').value;
             let gambar_ktp = formTambahUser.querySelector('input[name="gambar_ktp"]').files.length;
+            let gambar_profil = formTambahUser.querySelector('input[name="gambar_profil"]').files
+                .length;
             let role_id = formTambahUser.querySelector('select[name="role_id"]').value;
 
             // Cek apakah semua input telah diisi
             if (name !== "" && email !== "" && password !== "" && umur !== "" && jenis_kelamin &&
-                status_penghuni !== "" && gambar_ktp > 0 && role_id !== "") {
+                status_penghuni !== "" && gambar_ktp && gambar_profil > 0 && role_id !== "") {
                 event.preventDefault(); // Mencegah pengiriman formulir secara otomatis
 
                 // Tampilkan konfirmasi
@@ -38,6 +102,7 @@
                     }
                 });
             }
+            
         });
     });
 </script>
@@ -54,7 +119,6 @@
             let umur = formEditUser.querySelector('input[name="umur"]').value.trim();
             let jenis_kelamin = formEditUser.querySelector('input[name="jenis_kelamin"]:checked');
             let status_penghuni = formEditUser.querySelector('select[name="status_penghuni"]').value;
-            {{-- let gambar_ktp = formEditUser.querySelector('input[name="gambar_ktp"]').files.length; --}}
             let role_id = formEditUser.querySelector('select[name="role_id"]').value;
 
             // Cek apakah semua input yang wajib diisi sudah diisi

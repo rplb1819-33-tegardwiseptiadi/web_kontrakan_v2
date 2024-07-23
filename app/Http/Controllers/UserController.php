@@ -6,13 +6,15 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Hash;
 
+
+use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Http\Request; 
 use App\Http\Requests\UserUpdateRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Models\User;
 use App\Models\Role;
 use App\Models\ActivityLog;
-
+use App\Models\Transaction;
 
 class UserController extends Controller
 {
@@ -21,8 +23,9 @@ class UserController extends Controller
      */
     public function index()
     {
+        $user = auth()->user();
         $users = User::all();
-        return view('dashboard.user.index', compact('users'));
+        return view('dashboard.user.index', compact('users', 'user'));
     }
 
     /**
@@ -30,30 +33,25 @@ class UserController extends Controller
      */
     public function create()
     {
+        $user = auth()->user();
         $roles = Role::all();
-        return view('dashboard.user.create', compact('roles'));
+        return view('dashboard.user.create', compact('roles', 'user'));
     }
 
     /**
      * Store a newly created resource in storage.
      */ 
-    public function store(Request $request)
+    public function store(UserStoreRequest $request)
     {
-        $request->validate([
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8',
-            'umur' => 'required|integer|min:0',
-            'jenis_kelamin' => 'required|in:Pria,Wanita',
-            'status_penghuni' => 'required|in:Sudah Menikah,Belum Menikah',
-            'gambar_ktp' => 'required|image|mimes:jpeg,png,jpg|max:2048',
-            'role_id' => 'required|exists:roles,id'
-        ]);
-
+         
         // Handle the file upload
         if ($request->hasFile('gambar_ktp')) {
             $gambarKtp = time() . '_' . $request->file('gambar_ktp')->getClientOriginalName();
             $request->file('gambar_ktp')->move(public_path('assets/upload/gambar_ktp'), $gambarKtp);
+        }
+        if ($request->hasFile('gambar_profil')) {
+            $gambarProfil = time() . '_' . $request->file('gambar_profil')->getClientOriginalName();
+            $request->file('gambar_profil')->move(public_path('assets/upload/gambar_profil'), $gambarProfil);
         }
 
         // Create new user
@@ -65,6 +63,7 @@ class UserController extends Controller
             'jenis_kelamin' => $request->jenis_kelamin,
             'status_penghuni' => $request->status_penghuni,
             'gambar_ktp' => $gambarKtp,
+            'gambar_profil' => $gambarProfil,
             'role_id' => $request->role_id,
             'email_verified_at' => null, // Tambahkan ini
             'remember_token' => Str::random(10) // Tambahkan ini
@@ -79,14 +78,16 @@ class UserController extends Controller
             'created_at' => now(),
         ]);
 
-        return redirect()->route('dashboard.users.index')->with('success', 'Tambah Data User Berhasil !!');
+        Alert::success('Tambah Data User Berhasil', 'Data User Sudah Di Tambah !!!');
+        return redirect()->route('dashboard.users.index')->with('status', 'Tambah Data User Berhasil !!');
     }
     /**
      * Display the specified resource.
      */
     public function show(Request $request, User $user)
     {
-        return view('dashboard.user.detail', compact('request', 'user'));
+        $users = auth()->user();
+        return view('dashboard.user.detail', compact('request', 'user', 'users'));
     }
 
     /**
@@ -94,8 +95,9 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
+        $users = auth()->user();
         $roles = Role::all();
-        return view('dashboard.user.edit', compact('roles', 'user'));
+        return view('dashboard.user.edit', compact('roles', 'users', 'user'));
     }
 
     /**
@@ -104,24 +106,41 @@ class UserController extends Controller
     public function update(UserUpdateRequest $request, User $user)
     {
         $validated = $request->validated();
-
+    
+        // Mengatur password jika ada
         if (!empty($validated['password'])) {
             $validated['password'] = Hash::make($validated['password']);
         } else {
             unset($validated['password']);
         }
-
-        // Handle the file upload
+    
+        // Menangani upload file
         if ($request->hasFile('gambar_ktp')) {
             $file = $request->file('gambar_ktp');
             $filename = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('uploads'), $filename);
+            $file->move(public_path('assets/upload/gambar_ktp'), $filename);
             $validated['gambar_ktp'] = $filename;
         }
-
-        $user->update($validated);
-
-        // Log activity
+    
+        if ($request->hasFile('gambar_profil')) {
+            $file = $request->file('gambar_profil');
+            $filename = time() . '_' . $file->getClientOriginalName();
+            $file->move(public_path('assets/upload/gambar_profil'), $filename);
+            $validated['gambar_profil'] = $filename;
+        }
+    
+        // Cek role_id dan menentukan kolom mana yang perlu diupdate
+        if ($user->role_id == 1) {
+            // Jika role_id adalah 1, hanya perbarui kolom tertentu
+            $updateFields = ['name', 'email', 'password', 'umur', 'jenis_kelamin', 'status_penghuni', 'gambar_ktp', 'gambar_profil'];
+            $updateData = array_intersect_key($validated, array_flip($updateFields));
+            $user->update($updateData);
+        } else {
+            // Jika role_id bukan 1, perbarui semua kolom
+            $user->update($validated);
+        }
+    
+        // Log aktivitas
         ActivityLog::create([
             'user_id' => auth()->user()->id,
             'tabel_referensi' => 'users',
@@ -129,27 +148,42 @@ class UserController extends Controller
             'deskripsi' => 'Edit Data User: ' . $user->name,
             'created_at' => now(),
         ]);
-
-        alert()->success('Edit Data User Berhasil', 'Data User Sudah Di Ubah !!!');
+    
+        Alert::success('Edit Data User Berhasil', 'Data User Berhasil Di Update !!!');
         return redirect()->route('dashboard.users.index')->with('status', 'Data User Berhasil Di Update!');
     }
-    /**
-     * Remove the specified resource from storage.
-     */
+    
+
     public function destroy(User $user)
     {
-        $user->delete();
-
-        // Insert log activity
-        ActivityLog::create([
-            'user_id' => auth()->user()->id,
-            'tabel_referensi' => 'users',
-            'id_referensi' => $user->id,
-            'deskripsi' => 'Hapus Data User',
-            'created_at' => now(),
-        ]);
-
-        alert()->success('Proses Hapus Data Berhasil', 'Berhasil Hapus Data User');
-        return redirect()->route("dashboard.users.index")->with('status', 'Data User Berhasil Di Hapus!');
+        try {
+            $userId = $user->id; // Simpan ID sebelum dihapus
+    
+            // Pastikan tidak ada transaksi yang masih aktif terkait rent ini
+            $activeUsers = Transaction::where('user_id', $userId)->get();
+    
+            if ($activeUsers->isNotEmpty()) {
+                Alert::error('Error', 'User ini masih memiliki data transaksi & data keluhan aktif.');
+                return redirect()->route('dashboard.users.index')->with('Error', 'Data User Gagal Di Hapus!');;
+            }
+    
+            $user->delete();
+    
+            ActivityLog::create([
+                'user_id' => auth()->user()->id,
+                'tabel_referensi' => 'users',
+                'id_referensi' => $userId,
+                'deskripsi' => 'Hapus Data User',
+                'created_at' => now(), // Assuming you want to log the deletion time
+            ]);
+    
+            Alert::success('Hapus Data User Berhasil', 'Data User Sudah Dihapus !!!');
+            return redirect()->route('dashboard.users.index')->with('status', 'Data User Berhasil Di Hapus!');
+        } catch (\Exception $e) {
+            Alert::error('Error', 'Terjadi kesalahan saat menghapus data: ' . $e->getMessage());
+            return redirect()->route('dashboard.users.index')->with('error', 'Terjadi kesalahan saat menghapus data.');
+        }
     }
+    
+
 }

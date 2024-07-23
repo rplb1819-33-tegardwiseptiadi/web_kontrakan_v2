@@ -8,7 +8,8 @@ class PermissionController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         $permissions = Permission::all(); 
-        return view('dashboard.permission.index', compact('permissions'));
+        return view('dashboard.permission.index', compact('permissions', 'user'));
     }
 }

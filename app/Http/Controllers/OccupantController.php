@@ -19,15 +19,17 @@ class OccupantController extends Controller
 {
     public function index()
     {
+        $user = auth()->user();
         $occupants = Occupant::all();
         // dd($occupants);
-        return view('dashboard.penghuni.index', compact('occupants'));
+        return view('dashboard.penghuni.index', compact('occupants', 'user'));
     }
 
     // route tombol tambah
     public function create()
     {
-        return view('dashboard.penghuni.create');
+        $user = auth()->user();
+        return view('dashboard.penghuni.create', 'user');
     }
 
     public function store(OccupantStoreRequest $request)
@@ -73,7 +75,8 @@ class OccupantController extends Controller
     public function edit(Occupant $occupant)
     {
         // dd($occupant);
-        return view('dashboard.penghuni.edit', compact('occupant'));
+        $user = auth()->user();
+        return view('dashboard.penghuni.edit', compact('occupant', 'user'));
     }
 
     /**
@@ -121,8 +124,9 @@ class OccupantController extends Controller
 
     public function show(Request $request, Occupant $occupant, User $user)
     {
+        $user = auth()->user();
         $users = User::all();
-        return view('dashboard.penghuni.show', compact('request', 'occupant', 'users'));
+        return view('dashboard.penghuni.show', compact('request', 'occupant', 'users', 'user'));
     }
 
     public function destroy(Occupant $occupant)
