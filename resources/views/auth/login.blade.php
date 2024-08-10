@@ -43,7 +43,7 @@
             <div class="wrap-login100 p-l-55 p-r-55 p-t-65 p-b-54">
                 <form class="login100-form validate-form" method="POST" action="{{ route('login') }} ">
                     @csrf
-                    <img src="{{ asset('assets_bootstrap_login/images/logo/Logo.png') }}" alt="Gambar Anda"
+                    <img src="{{ asset('assets/img/icon_logo/login.png') }}" alt="Gambar Anda"
                         style="display: block; margin: 0 auto; width:250px; height 500px;">
                     <span class="login100-form-title p-b-10" style="font-family: Lucida Handwriting; margin:20px">
                         LOGIN

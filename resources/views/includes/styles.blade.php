@@ -1,5 +1,5 @@
 <!-- Favicons -->
-<link href="{{ asset('assets/img/favicon.png') }}" rel="icon">
+    <link rel="icon" type="image/png" href="{{ asset('assets_bootstrap_login/images/icons/icon.png') }} " />
 <link href="{{ asset('assets/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
 <!-- Google Fonts -->

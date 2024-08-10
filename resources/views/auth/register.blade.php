@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!--===============================================================================================-->
-    <link rel="icon" type="image/png" href="{{ asset('assets_bootstrap_login/images/icons/favicon.ico') }}">
+       <link rel="icon" type="image/png" href="{{ asset('assets_bootstrap_login/images/icons/icon.png') }} " />
     <!--===============================================================================================-->
     <link rel="stylesheet" type="text/css"
         href="{{ asset('assets_bootstrap_login/vendor/bootstrap/css/bootstrap.min.css') }}">
@@ -44,7 +44,7 @@
                 <form class="login100-form validate-form" method="POST" action="{{ route('register') }}"
                     enctype="multipart/form-data">
                     @csrf
-                    <img src="{{ asset('assets_bootstrap_login/images/logo/Logo.png') }}" alt="Gambar Anda"
+                    <img src="{{ asset('assets/img/icon_logo/login.png') }}" alt="Gambar Anda"
                         style="display: block; margin: 0 auto; width:250px; height:auto;">
                     <span class="login100-form-title p-b-10" style="font-family: 'Lucida Handwriting'; margin:20px">
                         REGISTER

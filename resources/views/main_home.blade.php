@@ -10,7 +10,7 @@
     <meta content="" name="keywords">
 
     <!-- Favicons -->
-    <link href="{{ asset('assets_landingpage/img/logo/Logo.png') }}" rel="icon">
+    <link rel="icon" type="image/png" href="{{ asset('assets_bootstrap_login/images/icons/icon.png') }} " />
     <link href="{{ asset('assets_landingpage/img/apple-touch-icon.png') }}" rel="apple-touch-icon">
 
     <!-- Google Fonts -->
@@ -45,7 +45,7 @@
     <header id="header" class="fixed-top ">
         <div class="container d-flex align-items-center">
             <a href="#home" class="logo me-auto" style="display: flex; align-items: center;">
-                <img src="{{ asset('assets_landingpage/img/logo/Logo.png') }}" alt="" class="img-fluid">
+                <img src="{{ asset('assets/img/icon_logo/side_nav.png') }}" alt="" class="img-fluid">
                 <h1 class="logo-text" style="color:white; margin:10px">KONSU</h1>
             </a>
 

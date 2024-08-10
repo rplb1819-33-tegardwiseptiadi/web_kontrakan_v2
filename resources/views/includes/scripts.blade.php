@@ -14,9 +14,9 @@
 <script src="{{ asset('assets/js/main.js') }}"></script>
 <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
- 
-
-@vite('resources/js/app.js')
+  
+{{-- @vite('resources/js/app.js') --}}
+<script src="{{asset('build/assets/app-075b8a7c.js')}}"></script> 
 
 <script>
     document.getElementById('logoutBtn').addEventListener('click', function() {
