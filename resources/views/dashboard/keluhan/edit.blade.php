@@ -95,8 +95,8 @@
 
                                 {{-- Status Keluhan --}}
                                 <div class="col-md-8 offset-md-2">
-                                    <label class="form-label">Status Keluhan</label>
                                     @if (auth()->user()->role_id == 1)
+                                    <label class="form-label">Status Keluhan</label>
                                         <div class="form-check">
                                             <input class="form-check-input" type="radio" name="status_keluhan"
                                                 id="status1" value="Sudah Divalidasi"
@@ -114,18 +114,13 @@
                                             </label>
                                         </div>
                                     @else
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="radio" name="status_keluhan"
-                                                id="status3" value="Belum Divalidasi" checked>
-                                            <label class="form-check-label" for="status3">
-                                                Belum Divalidasi
-                                            </label>
-                                        </div>
+                                        <input type="hidden" name="status_keluhan" value="Belum Divalidasi">
                                     @endif
                                     @error('status_keluhan')
                                         <span class="text-danger">{{ $message }}</span>
                                     @enderror
                                 </div>
+
 
                                 {{-- gambar_keluhan --}}
                                 <div class="col-md-8 offset-md-2">

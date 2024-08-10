@@ -76,31 +76,20 @@
                                                                 class="btn btn-danger">{{ $keluhan->status_keluhan }}</button>
                                                         @endif
                                                     </td>
-                                                    <!-- <td><span class="badge bg-success">Approved</span></td> -->
                                                     <td>
                                                         <div class="button-container">
-                                                            {{-- Tombol Edit --}}
-                                                            @can('keluhan_edit')
-                                                                <a
-                                                                    href="{{ route('dashboard.complaints.edit', $keluhan->id) }}">
-                                                                    <button type="button" class="btn btn-warning ">
-                                                                        <i class="bi bi-pencil-square"></i>
-                                                                        EDIT
-                                                                    </button>
-                                                                </a>
-                                                            @endcan
-                                                            {{-- Tombol Detail --}}
-                                                            @can('keluhan_show')
-                                                                <a
-                                                                    href="{{ route('dashboard.complaints.show', $keluhan->id) }}">
-                                                                    <button type="button" class="btn btn-primary ">
-                                                                        <i class="bi bi-eye"></i>
-                                                                        DETAIL
-                                                                    </button>
-                                                                </a>
-                                                            @endcan
-                                                            {{-- Tombol Hapus --}}
-                                                            @if ($keluhan->status_keluhan == 'Belum Divalidasi')
+                                                            @if (auth()->user()->role_id == 1)
+                                                                {{-- Tombol Edit --}}
+                                                                @can('keluhan_edit')
+                                                                    <a
+                                                                        href="{{ route('dashboard.complaints.edit', $keluhan->id) }}">
+                                                                        <button type="button" class="btn btn-warning">
+                                                                            <i class="bi bi-pencil-square"></i>
+                                                                            EDIT
+                                                                        </button>
+                                                                    </a>
+                                                                @endcan
+                                                                {{-- Tombol Hapus --}}
                                                                 @can('keluhan_delete')
                                                                     <form
                                                                         action="{{ route('dashboard.complaints.destroy', $keluhan->id) }}"
@@ -116,23 +105,65 @@
                                                                         </button>
                                                                     </form>
                                                                 @endcan
+                                                            @else
+                                                                @if ($keluhan->status_keluhan == 'Belum Divalidasi')
+                                                                    {{-- Tombol Edit --}}
+                                                                    @can('keluhan_edit')
+                                                                        <a
+                                                                            href="{{ route('dashboard.complaints.edit', $keluhan->id) }}">
+                                                                            <button type="button" class="btn btn-warning">
+                                                                                <i class="bi bi-pencil-square"></i>
+                                                                                EDIT
+                                                                            </button>
+                                                                        </a>
+                                                                    @endcan
+                                                                    {{-- Tombol Hapus --}}
+                                                                    @can('keluhan_delete')
+                                                                        <form
+                                                                            action="{{ route('dashboard.complaints.destroy', $keluhan->id) }}"
+                                                                            method="POST" style="display: inline;"
+                                                                            id="delete-form-{{ $keluhan->id }}">
+                                                                            @csrf
+                                                                            @method('DELETE')
+                                                                            <button type="button" class="btn btn-danger"
+                                                                                data-name="{{ $keluhan->user?->name }}"
+                                                                                onclick="confirmDelete(this)">
+                                                                                <i class="bi bi-trash3"></i>
+                                                                                HAPUS
+                                                                            </button>
+                                                                        </form>
+                                                                    @endcan
+                                                                @endif
                                                             @endif
+                                                            {{-- Tombol Detail --}}
+                                                            @can('keluhan_show')
+                                                                <a
+                                                                    href="{{ route('dashboard.complaints.show', $keluhan->id) }}">
+                                                                    <button type="button" class="btn btn-primary">
+                                                                        <i class="bi bi-eye"></i>
+                                                                        DETAIL
+                                                                    </button>
+                                                                </a>
+                                                            @endcan
                                                         </div>
+                                                    </td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td colspan="6">Tidak ada data keluhan</td>
+                                                </tr>
+                                            @endforelse
+                                        </tbody>
+                                    </table>
+
+
                                 </div>
-                                </td>
-                                </tr>
-                            @empty
-                                @endforelse
-                                </tbody>
-                                </table>
 
                             </div>
+                        </div><!-- End Recent Sales -->
 
-                        </div>
-                    </div><!-- End Recent Sales -->
-
-                </div>
-            </div><!-- End Left side columns -->
+                    </div>
+                </div><!-- End Left side columns -->
 
             </div>
         </section>
