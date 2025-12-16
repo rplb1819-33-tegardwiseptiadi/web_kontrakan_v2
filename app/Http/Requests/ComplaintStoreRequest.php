@@ -27,7 +27,7 @@ class ComplaintStoreRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'rent_id' => 'required|exists:rents,id',
             'keluhan' => 'required|string',
-            'gambar_keluhan' => 'nullable|image|max:2048',
+            'gambar_keluhan' => 'required|nullable|image|max:2048',
         ];
     }
 
@@ -45,6 +45,7 @@ class ComplaintStoreRequest extends FormRequest
             'rent_id.exists' => 'Nama Kontrakan tidak ditemukan dalam database.',
             'keluhan.required' => 'Keluhan wajib diisi.',
             'keluhan.string' => 'Keluhan harus berupa teks.',
+            'gambar_keluhan.required' => 'Gambar Keluhan wajib diisi.',
             'gambar_keluhan.image' => 'Gambar keluhan harus berupa file gambar.',
             'gambar_keluhan.max' => 'Gambar keluhan tidak boleh lebih besar dari 2048 kilobyte.',
         ];

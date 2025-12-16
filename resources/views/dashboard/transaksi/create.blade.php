@@ -132,7 +132,7 @@
                                       <div class="col-md-8 offset-md-2">
                                           <label for="harga_perbulan" class="form-label">Harga (/Bulan) :</label>
                                           <input type="number" class="form-control" id="harga_perbulan"
-                                              name="harga_perbulan" readonly value="('harga_perbulan') }}">
+                                              name="harga_perbulan" readonly value="{{ old('harga_perbulan') }}">
                                       </div>
 
                                       {{-- Lama Sewa (Bulan) --}}
@@ -251,6 +251,7 @@
   <!-- Your HTML content here -->
 
   @push('addon-script')
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
       <!-- Pastikan Anda menyertakan SweetAlert2 di halaman Anda -->
       <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
       <script>
@@ -357,7 +358,7 @@
                       showCancelButton: true,
                       confirmButtonColor: '#3085d6',
                       cancelButtonColor: '#d33',
-                      confirmButtonText: 'Ya, Ubah!',
+                      confirmButtonText: 'Ya, Tambah!',
                       cancelButtonText: 'Batal'
                   }).then((result) => {
                       if (result.isConfirmed) {
